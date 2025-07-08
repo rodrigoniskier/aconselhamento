@@ -256,7 +256,7 @@
             
             function parseCitations(text) {
                 if (!text) return '';
-                return text.replace(/\+)\]/g, '<span class="citation" title="Fonte: $1">[$1]</span>');
+                return text.replace(/\[([^][]+)\]/g, '<span class="citation" title="Fonte: $1">[$1]</span>');
             }
 
             async function carregarConteudo(file, key) {
