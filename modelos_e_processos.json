@@ -1,44 +1,44 @@
 {
   "modelos_metodos": {
     "titulo": "3. Modelos e Métodos: Uma Abordagem Bíblica e Crítica",
-    [cite_start]"introducao": "O aconselhamento cristão reformado dialoga criticamente com as psicologias seculares e se desenvolve a partir de sua própria história, resultando em métodos práticos que são distintamente bíblicos. [cite: 130]",
+    "introducao": "O aconselhamento cristão reformado dialoga criticamente com as psicologias seculares e se desenvolve a partir de sua própria história, resultando em métodos práticos que são distintamente bíblicos. [cite: 130]",
     "analise_modelos_seculares": {
       "titulo": "Análise de Modelos Seculares: Uma Crítica Reformada",
-      [cite_start]"introducao": "Uma cosmovisão bíblica exige uma análise crítica das psicologias seculares que, embora possam oferecer observações úteis (graça comum), partem de pressupostos fundamentalmente anticristãos. [cite: 132]",
+      "introducao": "Uma cosmovisão bíblica exige uma análise crítica das psicologias seculares que, embora possam oferecer observações úteis (graça comum), partem de pressupostos fundamentalmente anticristãos. [cite: 132]",
       "modelos": [
         {
           "nome": "Sigmund Freud (Psicanálise)",
-          "descricao": "Postula um homem determinista, movido por impulsos inconscientes. [cite_start]Sua visão da religião como uma 'neurose universal' é um ataque direto à fé, negando a imagem de Deus e a responsabilidade moral. [cite: 133, 134, 135]"
+          "descricao": "Postula um homem determinista, movido por impulsos inconscientes. Sua visão da religião como uma 'neurose universal' é um ataque direto à fé, negando a imagem de Deus e a responsabilidade moral. [cite: 133, 134, 135]"
         },
         {
           "nome": "B.F. Skinner (Behaviorismo Radical)",
-          "descricao": "Reduz o ser humano a um complexo de comportamentos moldados por condicionamento ambiental, negando a mente, a alma e o livre-arbítrio. [cite_start]É diametralmente oposto à visão bíblica do homem como agente moral. [cite: 136, 137, 138]"
+          "descricao": "Reduz o ser humano a um complexo de comportamentos moldados por condicionamento ambiental, negando a mente, a alma e o livre-arbítrio. É diametralmente oposto à visão bíblica do homem como agente moral. [cite: 136, 137, 138]"
         },
         {
           "nome": "Carl Rogers (Psicologia Humanista)",
-          "descricao": "Promove uma visão otimista do homem como inerentemente bom, com a fonte de cura residindo dentro do próprio indivíduo. [cite_start]Colide frontalmente com a doutrina da depravação total. [cite: 139]"
+          "descricao": "Promove uma visão otimista do homem como inerentemente bom, com a fonte de cura residindo dentro do próprio indivíduo. Colide frontalmente com a doutrina da depravação total. [cite: 139]"
         },
         {
           "nome": "Abraham Maslow (Hierarquia das Necessidades)",
-          [cite_start]"descricao": "Sua famosa pirâmide propõe que o homem vive para satisfazer suas próprias necessidades. [cite: 143, 144] [cite_start]A Bíblia inverte essa pirâmide, ensinando que a necessidade mais fundamental é a reconciliação com Deus (Mateus 6:33). [cite: 145, 146, 147, 148]"
+          "descricao": "Sua famosa pirâmide propõe que o homem vive para satisfazer suas próprias necessidades. [cite: 143, 144] A Bíblia inverte essa pirâmide, ensinando que a necessidade mais fundamental é a reconciliação com Deus (Mateus 6:33). [cite: 145, 146, 147, 148]"
         },
         {
           "nome": "Carl Jung (Psicologia Analítica)",
-          [cite_start]"descricao": "Seu sistema é essencialmente uma forma de gnosticismo moderno, reinterpretando símbolos religiosos como arquétipos da psique. [cite: 149, 150] [cite_start]A salvação, para Jung, é um processo de integração psicológica, uma auto-salvação incompatível com o Evangelho. [cite: 151, 152]"
+          "descricao": "Seu sistema é essencialmente uma forma de gnosticismo moderno, reinterpretando símbolos religiosos como arquétipos da psique. [cite: 149, 150] A salvação, para Jung, é um processo de integração psicológica, uma auto-salvação incompatível com o Evangelho. [cite: 151, 152]"
         }
       ]
     },
     "modelos_aconselhamento_biblico": {
       "titulo": "Modelos de Aconselhamento Bíblico: A Evolução de Jay Adams a David Powlison",
-      [cite_start]"introducao": "O movimento contemporâneo de aconselhamento bíblico passou por um processo de maturação, frequentemente descrito em termos de 'gerações'. [cite: 154]",
+      "introducao": "O movimento contemporâneo de aconselhamento bíblico passou por um processo de maturação, frequentemente descrito em termos de 'gerações'. [cite: 154]",
       "geracoes": [
         {
           "nome": "Primeira Geração (Aconselhamento Noutético - Jay Adams)",
-          [cite_start]"descricao": "Surgido em 1970, foi uma correção necessária que reafirmou a suficiência das Escrituras. [cite: 155, 156] [cite_start]O termo noutético enfatiza a confrontação e a instrução bíblica, focando na responsabilidade pessoal e na mudança de comportamento. [cite: 157, 158] [cite_start]Com o tempo, foi criticado por um suposto reducionismo, focando mais no comportamento externo do que nas motivações do coração. [cite: 159]"
+          "descricao": "Surgido em 1970, foi uma correção necessária que reafirmou a suficiência das Escrituras. [cite: 155, 156] O termo noutético enfatiza a confrontação e a instrução bíblica, focando na responsabilidade pessoal e na mudança de comportamento. [cite: 157, 158] Com o tempo, foi criticado por um suposto reducionismo, focando mais no comportamento externo do que nas motivações do coração. [cite: 159]"
         },
         {
           "nome": "Segunda Geração (Foco no Coração - CCEF)",
-          [cite_start]"descricao": "Liderada por figuras como David Powlison, construiu sobre o fundamento de Adams com maior nuance. [cite: 160] [cite_start]A ênfase deslocou-se para uma teologia bíblica do coração, vendo o problema não apenas como o 'fruto' (comportamento), mas a 'raiz' (ídolos do coração). [cite: 161, 162] [cite_start]O aconselhado é visto como 'pecador' e 'sofredor', e o Evangelho é aplicado para desentronizar ídolos e restaurar a adoração a Deus. [cite: 163, 164, 165]"
+          "descricao": "Liderada por figuras como David Powlison, construiu sobre o fundamento de Adams com maior nuance. [cite: 160] A ênfase deslocou-se para uma teologia bíblica do coração, vendo o problema não apenas como o 'fruto' (comportamento), mas a 'raiz' (ídolos do coração). [cite: 161, 162] O aconselhado é visto como 'pecador' e 'sofredor', e o Evangelho é aplicado para desentronizar ídolos e restaurar a adoração a Deus. [cite: 163, 164, 165]"
         }
       ],
       "tabela": [
@@ -55,48 +55,48 @@
       "principios": [
         {
           "nome": "Escuta Ativa e Empatia Bíblica",
-          [cite_start]"descricao": "O bom aconselhamento começa com escuta cuidadosa (Provérbios 18:13). [cite: 170, 171] [cite_start]A empatia bíblica é a capacidade de entrar no mundo do aconselhado para aplicar a Palavra com precisão e compaixão. [cite: 172, 173]"
+          "descricao": "O bom aconselhamento começa com escuta cuidadosa (Provérbios 18:13). [cite: 170, 171] A empatia bíblica é a capacidade de entrar no mundo do aconselhado para aplicar a Palavra com precisão e compaixão. [cite: 172, 173]"
         },
         {
           "nome": "Diagnóstico Pastoral",
-          [cite_start]"descricao": "O objetivo é 'trazer para fora' os propósitos profundos do coração (Provérbios 20:5). [cite: 174, 175] [cite_start]O diagnóstico não se contenta com o problema superficial, mas explora as motivações, desejos e medos que constituem os ídolos do coração, usando perguntas investigativas. [cite: 175]"
+          "descricao": "O objetivo é 'trazer para fora' os propósitos profundos do coração (Provérbios 20:5). [cite: 174, 175] O diagnóstico não se contenta com o problema superficial, mas explora as motivações, desejos e medos que constituem os ídolos do coração, usando perguntas investigativas. [cite: 175]"
         },
         {
           "nome": "O Uso Terapêutico das Escrituras e da Oração",
-          [cite_start]"descricao": "A Palavra de Deus é o bisturi do Cirurgião Divino (Hebreus 4:12), devendo ser aplicada de forma criativa e relevante, não como 'curativos de versículos'. [cite: 176, 177, 178] [cite_start]A oração permeia todo o processo, reconhecendo a dependência do Espírito Santo para a transformação. [cite: 179, 180, 181]"
+          "descricao": "A Palavra de Deus é o bisturi do Cirurgião Divino (Hebreus 4:12), devendo ser aplicada de forma criativa e relevante, não como 'curativos de versículos'. [cite: 176, 177, 178] A oração permeia todo o processo, reconhecendo a dependência do Espírito Santo para a transformação. [cite: 179, 180, 181]"
         }
       ]
     }
   },
   "processo_aconselhamento": {
     "titulo": "4. O Processo de Aconselhamento na Prática",
-    [cite_start]"introducao": "O aconselhamento bíblico, embora flexível, segue um fluxo lógico que pode ser estruturado em fases claras e dinâmicas. [cite: 183, 184]",
+    "introducao": "O aconselhamento bíblico, embora flexível, segue um fluxo lógico que pode ser estruturado em fases claras e dinâmicas. [cite: 183, 184]",
     "fases_processo": {
       "titulo": "Fases do Processo: Coleta de Dados, Diagnóstico, Prescrição e Acompanhamento",
-      [cite_start]"introducao": "Inspirado em modelos práticos, podemos delinear o processo em quatro fases principais: [cite: 186]",
+      "introducao": "Inspirado em modelos práticos, podemos delinear o processo em quatro fases principais: [cite: 186]",
       "fases": [
-        [cite_start]{"numero": 1, "nome": "Coleta de Dados (Inventário)", "descricao": "Construir um relacionamento de confiança e obter uma compreensão abrangente da pessoa e seu problema. [cite: 187]"},
-        [cite_start]{"numero": 2, "nome": "Diagnóstico Pastoral (Interpretação)", "descricao": "Analisar os dados coletados através das lentes das Escrituras para identificar as causas profundas. [cite: 188]"},
-        [cite_start]{"numero": 3, "nome": "Prescrição (Instrução e Implementação)", "descricao": "Desenvolver um plano de mudança bíblico e prático, centrado em tarefas específicas. [cite: 189]"},
-        [cite_start]{"numero": 4, "nome": "Acompanhamento (Integração)", "descricao": "Avaliar o progresso, ajustar a estratégia e integrar o aconselhado na vida da comunidade da igreja. [cite: 190]"}
+        {"numero": 1, "nome": "Coleta de Dados (Inventário)", "descricao": "Construir um relacionamento de confiança e obter uma compreensão abrangente da pessoa e seu problema. [cite: 187]"},
+        {"numero": 2, "nome": "Diagnóstico Pastoral (Interpretação)", "descricao": "Analisar os dados coletados através das lentes das Escrituras para identificar as causas profundas. [cite: 188]"},
+        {"numero": 3, "nome": "Prescrição (Instrução e Implementação)", "descricao": "Desenvolver um plano de mudança bíblico e prático, centrado em tarefas específicas. [cite: 189]"},
+        {"numero": 4, "nome": "Acompanhamento (Integração)", "descricao": "Avaliar o progresso, ajustar a estratégia e integrar o aconselhado na vida da comunidade da igreja. [cite: 190]"}
       ]
     },
     "detalhes_fases": [
       {
         "fase": "Coleta de dados",
-        "descricao": "A primeira fase é sobre conhecer. [cite_start]O conselheiro deve criar um ambiente seguro, acolhedor e usar perguntas abertas para que o aconselhado conte sua história. [cite: 191, 192, 194, 195, 196, 197, 198, 199] [cite_start]Para auxiliar, muitos ministérios utilizam um Inventário de Dados Pessoais (PDI) antes da primeira sessão. [cite: 200, 201, 202, 203]"
+        "descricao": "A primeira fase é sobre conhecer. O conselheiro deve criar um ambiente seguro, acolhedor e usar perguntas abertas para que o aconselhado conte sua história. [cite: 191, 192, 194, 195, 196, 197, 198, 199] Para auxiliar, muitos ministérios utilizam um Inventário de Dados Pessoais (PDI) antes da primeira sessão. [cite: 200, 201, 202, 203]"
       },
       {
         "fase": "Diagnóstico pastoral e espiritual",
-        [cite_start]"descricao": "Uma vez que os dados são coletados, a tarefa é a interpretação bíblica. [cite: 204, 205] [cite_start]É um trabalho de exegese da alma, buscando responder 'O que está acontecendo?', 'Por que está acontecendo?' e 'O que deveria estar acontecendo?'. [cite: 206, 207, 208, 209, 210] [cite_start]O diagnóstico vai além do superficial para descobrir os ídolos do coração, pois a prescrição deve tratar a raiz, não o sintoma. [cite: 211, 212, 213]"
+        "descricao": "Uma vez que os dados são coletados, a tarefa é a interpretação bíblica. [cite: 204, 205] É um trabalho de exegese da alma, buscando responder 'O que está acontecendo?', 'Por que está acontecendo?' e 'O que deveria estar acontecendo?'. [cite: 206, 207, 208, 209, 210] O diagnóstico vai além do superficial para descobrir os ídolos do coração, pois a prescrição deve tratar a raiz, não o sintoma. [cite: 211, 212, 213]"
       },
       {
         "fase": "Prescrição e Acompanhamento",
-        [cite_start]"descricao": "A mudança acontece durante toda a semana, por isso a prescrição de tarefas bíblicas (homework) é indispensável. [cite: 215, 216] [cite_start]As tarefas devem ser bíblicas, práticas, personalizadas e visar o 'despojar-se do velho homem' e 'revestir-se do novo' (Efésios 4:22-24). [cite: 218, 219, 220] [cite_start]Exemplos incluem leitura bíblica, memorização, diários e atos de obediência. [cite: 221, 222, 223, 224] [cite_start]Cada sessão subsequente começa com a revisão da tarefa, promovendo responsabilidade e servindo como avaliação contínua. [cite: 225, 226, 227, 228]"
+        "descricao": "A mudança acontece durante toda a semana, por isso a prescrição de tarefas bíblicas (homework) é indispensável. [cite: 215, 216] As tarefas devem ser bíblicas, práticas, personalizadas e visar o 'despojar-se do velho homem' e 'revestir-se do novo' (Efésios 4:22-24). [cite: 218, 219, 220] Exemplos incluem leitura bíblica, memorização, diários e atos de obediência. [cite: 221, 222, 223, 224] Cada sessão subsequente começa com a revisão da tarefa, promovendo responsabilidade e servindo como avaliação contínua. [cite: 225, 226, 227, 228]"
       },
       {
         "fase": "Encaminhamento",
-        [cite_start]"descricao": "Quando um encaminhamento é necessário, deve ser conduzido com cuidado pastoral. [cite: 229, 230, 231] [cite_start]Isso envolve explicar clara e compassivamente o porquê do encaminhamento, assistir na busca por um profissional qualificado e manter o acompanhamento pastoral, colaborando para um cuidado holístico. [cite: 232, 233, 234, 235, 236, 237]"
+        "descricao": "Quando um encaminhamento é necessário, deve ser conduzido com cuidado pastoral. [cite: 229, 230, 231] Isso envolve explicar clara e compassivamente o porquê do encaminhamento, assistir na busca por um profissional qualificado e manter o acompanhamento pastoral, colaborando para um cuidado holístico. [cite: 232, 233, 234, 235, 236, 237]"
       }
     ]
   }
