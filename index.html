@@ -3,412 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aconselhamento Reformado: Teologia e Prática</title>
+    <title>Aconselhamento Cristão Reformado</title>
+    <link href="styles.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@300;400;700&display=swap');
-
-        :root {
-            --cor-primaria: #0d47a1;
-            --cor-secundaria: #1976d2;
-            --cor-destaque: #fdd835;
-            --cor-texto: #333;
-            --cor-fundo: #f4f6f8;
-            --cor-branco: #ffffff;
-            --sombra-card: 0 4px 8px rgba(0,0,0,0.1);
+        /* Custom animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        body {
-            font-family: 'Roboto Slab', serif;
-            line-height: 1.8;
-            color: var(--cor-texto);
-            background-color: var(--cor-fundo);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 0;
+        .sidebar-btn:hover {
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
         }
-
-        header {
-            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
-            color: var(--cor-branco);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--cor-destaque);
+        .content-section {
+            display: none;
         }
-
-        header h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.8em;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        #menu {
-            background-color: var(--cor-branco);
-            padding: 15px;
-            margin-bottom: 30px;
-            border-radius: 8px;
-            box-shadow: var(--sombra-card);
-            text-align: center;
-        }
-
-        .menu-btn {
-            background-color: var(--cor-secundaria);
-            color: var(--cor-branco);
-            border: none;
-            padding: 12px 20px;
-            margin: 5px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        .menu-btn:hover, .menu-btn.active {
-            background-color: var(--cor-primaria);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
-        main {
-            flex-grow: 1;
-        }
-
-        #conteudo-central {
-            background-color: var(--cor-branco);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: var(--sombra-card);
-            min-height: 400px;
-            transition: opacity 0.5s ease;
-        }
-
-        #conteudo-central h2 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--cor-primaria);
-            border-bottom: 2px solid var(--cor-destaque);
-            padding-bottom: 10px;
-            margin-top: 0;
-        }
-        
-        #conteudo-central h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--cor-secundaria);
-            margin-top: 30px;
-        }
-
-        .card {
-            background-color: var(--cor-fundo);
-            border-left: 5px solid var(--cor-secundaria);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-        }
-        
-        .card-titulo {
-            font-weight: 700;
-            color: var(--cor-primaria);
-            margin-top: 0;
-        }
-
-        .lista-interativa li {
-            padding: 10px;
-            border-bottom: 1px dashed #ddd;
-        }
-        
-        .lista-interativa li:last-child {
-            border-bottom: none;
-        }
-        
-        .tabela-comparativa {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        
-        .tabela-comparativa th, .tabela-comparativa td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .tabela-comparativa th {
-            background-color: var(--cor-primaria);
-            color: var(--cor-branco);
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .tabela-comparativa tr:nth-child(even) {
-            background-color: var(--cor-fundo);
-        }
-
-        .citation {
-            color: var(--cor-secundaria);
-            font-size: 0.8em;
-            font-weight: bold;
-            cursor: help;
-            transition: color 0.3s;
-        }
-        .citation:hover {
-            color: var(--cor-primaria);
-        }
-
-        footer {
-            background-color: var(--cor-texto);
-            color: var(--cor-branco);
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        /* Estilos para responsividade */
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            .menu-btn {
-                display: block;
-                width: 100%;
-                margin: 8px 0;
-            }
+        .content-section.active {
+            display: block;
         }
     </style>
 </head>
-<body>
+<body class="bg-white text-gray-800 flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-blue-800 text-white p-4 flex flex-col fixed h-full">
+        <h1 class="text-2xl font-bold mb-6 text-yellow-300">Aconselhamento Reformado</h1>
+        <nav class="flex-1">
+            <ul>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('fundamentos')">Fundamentos</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('historia')">História</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('puritanos')">Tradição Puritana</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('suficiencia')">Suficiência das Escrituras</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('qualidades')">Qualidades do Conselheiro</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('etica')">Ética e Confidencialidade</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('psicoterapia')">Aconselhamento vs. Psicoterapia</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('metodologia')">Metodologia</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('processo')">Processo de Aconselhamento</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('temas')">Temas Pastorais</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('vicios')">Vícios e Idolatria</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('familia')">Aconselhamento Familiar</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('comunidade')">Aconselhamento na Comunidade</button></li>
+                <li><button class="sidebar-btn w-full text-left p-2 mb-2 bg-blue-600 hover:bg-blue-700 rounded text-white" onclick="showSection('recursos')">Recursos e Referências</button></li>
+            </ul>
+        </nav>
+    </aside>
 
-    <header>
-        <div class="container">
-            <h1>Aconselhamento Reformado: Teologia e Prática</h1>
+    <!-- Main Content -->
+    <main class="ml-64 p-8 flex-1 bg-gray-100">
+        <div id="content" class="max-w-4xl mx-auto">
+            <section id="fundamentos" class="content-section fade-in">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Fundamentos do Aconselhamento Cristão Reformado</h2>
+                <p class="text-lg text-gray-700">O aconselhamento cristão reformado busca conduzir o coração do adorador, desviado para ídolos, de volta ao Deus verdadeiro. A mudança permanente é fruto desse processo, não o alvo principal.</p>
+            </section>
+            <section id="historia" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">História do Aconselhamento</h2>
+                <p class="text-lg text-gray-700">A prática, conhecida como poimênica, tem raízes na imagem de Deus como Pastor de Israel (Salmo 23) e na autodesignação de Cristo como o "Bom Pastor" (João 10:11). Desde a igreja primitiva, o cuidado de almas foi central, com Calvino em Genebra praticando um ministério pastoral intenso.</p>
+            </section>
+            <section id="puritanos" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Tradição Puritana</h2>
+                <p class="text-lg text-gray-700">Os puritanos dos séculos XVI e XVII, chamados "médicos da alma", desenvolveram a casuística, aplicando princípios bíblicos a casos complexos da vida cotidiana.</p>
+            </section>
+            <section id="suficiencia" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Suficiência das Escrituras</h2>
+                <p class="text-lg text-gray-700">A Bíblia é suficiente para diagnosticar e tratar problemas não-orgânicos da alma (2 Timóteo 3:16-17), abrangendo Teologia, Antropologia, Hamartiologia, Cristologia, Soteriologia e Santificação.</p>
+            </section>
+            <section id="qualidades" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Qualidades do Conselheiro</h2>
+                <p class="text-lg text-gray-700">O conselheiro deve exibir piedade pessoal, temor ao Senhor (Provérbios 1:7), oração constante (1 Tessalonicenses 5:17), e um testemunho moral exemplar.</p>
+            </section>
+            <section id="etica" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Ética e Confidencialidade</h2>
+                <p class="text-lg text-gray-700">A confidencialidade é essencial, protegida legalmente no Brasil pelo Código Penal (Artigo 154) e Código de Processo Penal (Artigo 207), mas deve ceder ao dever de proteger vidas em casos graves.</p>
+            </section>
+            <section id="psicoterapia" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Aconselhamento vs. Psicoterapia</h2>
+                <p class="text origin-top-left animate-[spin_3s_linear_infinite] bg-yellow-300">Diferentemente da psicoterapia, o aconselhamento bíblico baseia-se na autoridade das Escrituras, não em teorias humanas, reconhecendo o homem como criatura caída e adoradora por natureza.</p>
+            </section>
+            <section id="metodologia" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Metodologia do Aconselhamento</h2>
+                <p class="text-lg text-gray-700">Inclui escuta ativa, empatia bíblica (Provérbios 18:13), e dependência do Espírito Santo, com oração antes, durante e após as sessões.</p>
+            </section>
+            <section id="processo" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Processo de Aconselhamento</h2>
+                <p class="text-lg text-gray-700">Envolve quatro fases: Coleta de Dados, Diagnóstico Pastoral, Prescrição e Acompanhamento, usando ferramentas como o Inventário de Dados Pessoais.</p>
+            </section>
+            <section id="temas" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Temas Pastorais</h2>
+                <p class="text-lg text-gray-700">Aborda crises espirituais, conflitos (Tiago 4:1-3), luto (Romanos 12:15), culpa, medo, e ansiedade, com soluções baseadas na fé e na Palavra.</p>
+            </section>
+            <section id="vicios" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Vícios e Idolatria</h2>
+                <p class="text-lg text-gray-700">Vícios, como pornografia, são vistos como idolatria (Calvino: "fábrica de ídolos"). A abordagem envolve confissão radical e planos práticos (2 Timóteo 2:22).</p>
+            </section>
+            <section id="familia" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Aconselhamento Familiar</h2>
+                <p class="text-lg text-gray-700">Baseado na teologia do pacto, foca na restauração do casamento como reflexo da relação entre Cristo e a Igreja (Efésios 5:32).</p>
+            </section>
+            <section id="comunidade" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Aconselhamento na Comunidade</h2>
+                <p class="text-lg text-gray-700">A igreja local é o ambiente terapêutico de Deus, onde a pregação, o discipulado e a graça comum colaboram para a cura.</p>
+            </section>
+            <section id="recursos" class="content-section">
+                <h2 class="text-3xl font-bold text-blue-800 mb-4">Recursos e Referências</h2>
+                <p class="text-lg text-gray-700">Obras fundamentais incluem "Conselheiro Capaz" de Jay Adams, "Vendo com Novos Olhos" de David Powlison, e "Instrumentos nas Mãos do Redentor" de Paul Tripp. Recursos online: ABCB, CCEF, Conexão Conselho Bíblico.</p>
+            </section>
         </div>
-    </header>
+    </main>
 
-    <div class="container">
-        <nav id="menu">
-            </nav>
-
-        <main id="conteudo-central">
-            <h2>Bem-vindo!</h2>
-            <p>Selecione um tópico no menu acima para explorar o conteúdo de forma interativa. Este material foi desenvolvido para ser um guia didático sobre a teologia e prática do aconselhamento cristão na tradição reformada.</p>
-        </main>
-    </div>
-
-    <footer>
-        <p>Desenvolvido por Rodrigo Niskier e Gemini.</p>
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white p-4 text-center">
+        <p>Desenvolvido por Rodrigo Niskier, Gemini e Grok</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menu = document.getElementById('menu');
-            const conteudoCentral = document.getElementById('conteudo-central');
-
-            const menuConfig = {
-                "Fundamentos": { file: 'fundamentos_e_conselheiro.json', key: 'fundamentos' },
-                "O Conselheiro": { file: 'fundamentos_e_conselheiro.json', key: 'conselheiro' },
-                "Modelos e Métodos": { file: 'modelos_e_processo.json', key: 'modelos_metodos' },
-                "O Processo": { file: 'modelos_e_processo.json', key: 'processo_aconselhamento' },
-                "Temas Pastorais": { file: 'temas_e_contextos.json', key: 'temas_pastorais' },
-                "Saúde Emocional e Vícios": { file: 'temas_e_contextos.json', key: 'saude_emocional_vicios' },
-                "Contexto Familiar": { file: 'temas_e_contextos.json', key: 'contexto_familiar_conjugal' },
-                "Situações de Crise": { file: 'temas_e_contextos.json', key: 'situacoes_crise' },
-                "Estudos de Caso": { file: 'temas_e_contextos.json', key: 'teoria_pratica' },
-                "A Igreja como Agente de Cura": { file: 'temas_e_contextos.json', key: 'aconselhamento_comunidade' },
-                "Conclusão": { file: 'temas_e_contextos.json', key: 'conclusao' },
-                "Bibliografia": { file: 'temas_e_contextos.json', key: 'bibliografia' }
-            };
-
-            // Criar botões do menu
-            for (const nomeBotao in menuConfig) {
-                const btn = document.createElement('button');
-                btn.className = 'menu-btn';
-                btn.textContent = nomeBotao;
-                btn.dataset.file = menuConfig[nomeBotao].file;
-                btn.dataset.key = menuConfig[nomeBotao].key;
-                menu.appendChild(btn);
-            }
-
-            menu.addEventListener('click', (e) => {
-                if (e.target.classList.contains('menu-btn')) {
-                    const { file, key } = e.target.dataset;
-                    
-                    document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    
-                    carregarConteudo(file, key);
-                }
+        // Show section and apply animation
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active', 'fade-in');
             });
-            
-            function parseCitations(text) {
-                if (!text) return '';
-                return text.replace(/\[([^][]+)\]/g, '<span class="citation" title="Fonte: $1">[$1]</span>');
-            }
+            const targetSection = document.getElementById(sectionId);
+            targetSection.classList.add('active', 'fade-in');
+        }
 
-            async function carregarConteudo(file, key) {
-                conteudoCentral.style.opacity = '0';
-                try {
-                    const response = await fetch(file);
-                    if (!response.ok) {
-                        throw new Error(`Erro ao carregar o arquivo: ${response.statusText}`);
-                    }
-                    const data = await response.json();
-                    const conteudo = data[key];
-                    
-                    setTimeout(() => {
-                        renderizarConteudo(conteudo);
-                        conteudoCentral.style.opacity = '1';
-                    }, 300);
-
-                } catch (error) {
-                    console.error('Falha ao buscar conteúdo:', error);
-                    conteudoCentral.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar o conteúdo solicitado. Verifique o console para mais detalhes.</p>`;
-                    conteudoCentral.style.opacity = '1';
-                }
-            }
-
-            function renderizarConteudo(data) {
-                let html = `<h2>${parseCitations(data.titulo)}</h2>`;
-                if (data.introducao) {
-                    html += `<p>${parseCitations(data.introducao)}</p>`;
-                }
-                if (data.texto) {
-                    html += `<p>${parseCitations(data.texto)}</p>`;
-                }
-
-                // Renderizadores específicos para cada tipo de estrutura de dados
-                if (data.conteudo) {
-                    data.conteudo.forEach(item => {
-                        html += `<h3>${parseCitations(item.subtitulo)}</h3><p>${parseCitations(item.texto)}</p>`;
-                    });
-                }
-                
-                if (data.tradicoes_relevantes) {
-                    const trad = data.tradicoes_relevantes;
-                    html += `<h3>${parseCitations(trad.titulo)}</h3><p>${parseCitations(trad.introducao)}</p>`;
-                    trad.tradicoes.forEach(t => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(t.nome)}</h4><p>${parseCitations(t.descricao)}</p></div>`;
-                    });
-                }
-
-                if (data.bases_biblicas) {
-                    const bases = data.bases_biblicas;
-                    html += `<h3>${parseCitations(bases.titulo)}</h3><p>${parseCitations(bases.introducao)}</p>`;
-                    bases.pilares.forEach(p => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(p.nome)}</h4><p>${parseCitations(p.descricao)}</p></div>`;
-                    });
-                }
-
-                if (data.qualidades_essenciais) {
-                    const qual = data.qualidades_essenciais;
-                    html += `<h3>${parseCitations(qual.titulo)}</h3><p>${parseCitations(qual.introducao)}</p>`;
-                    qual.qualidades.forEach(q => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(q.nome)}</h4><p>${parseCitations(q.descricao)}</p></div>`;
-                    });
-                }
-                
-                if (data.responsabilidades_limites || data.analise_modelos_seculares || data.ministerio_consolo || data.areas_especificas || data.sofrimento_interno || data.abordagem_risco || data.luto_agudo) {
-                    const section = data.responsabilidades_limites || data.analise_modelos_seculares || data.ministerio_consolo || data.areas_especificas || data.sofrimento_interno || data.abordagem_risco || data.luto_agudo;
-                    html += `<h3>${parseCitations(section.titulo)}</h3>`;
-                    if (section.introducao) html += `<p>${parseCitations(section.introducao)}</p>`;
-                    const items = section.topicos || section.modelos;
-                    items.forEach(item => {
-                         html += `<div class="card"><h4 class="card-titulo">${parseCitations(item.nome)}</h4><p>${parseCitations(item.descricao)}</p></div>`;
-                    });
-                }
-
-                if (data.formacao_discernimento) {
-                    const form = data.formacao_discernimento;
-                    html += `<h3>${parseCitations(form.titulo)}</h3><p>${parseCitations(form.introducao)}</p>`;
-                    
-                    const psico = form.diferenca_psicoterapia;
-                    html += `<div class="card"><h4 class="card-titulo">${parseCitations(psico.titulo)}</h4><p>${parseCitations(psico.introducao)}</p><ul class="lista-interativa">`;
-                    psico.diferencas.forEach(d => {
-                        html += `<li><strong>${parseCitations(d.ponto)}:</strong> ${parseCitations(d.biblico)} <em>vs.</em> ${parseCitations(d.psicoterapia)}</li>`;
-                    });
-                    html += `</ul></div>`;
-                    
-                    const enc = form.criterios_encaminhamento;
-                    html += `<div class="card"><h4 class="card-titulo">${parseCitations(enc.titulo)}</h4><p>${parseCitations(enc.introducao)}</p>`;
-                    enc.criterios.forEach(c => {
-                         html += `<p><strong>${parseCitations(c.nome)}:</strong> ${parseCitations(c.descricao)}</p>`;
-                    });
-                    html += `</div>`;
-                }
-                
-                if (data.modelos_aconselhamento_biblico && data.modelos_aconselhamento_biblico.tabela) {
-                    const tabData = data.modelos_aconselhamento_biblico.tabela;
-                    html += `<h3>Comparativo de Gerações</h3>`;
-                    html += `<div class="tabela-comparativa-container" style="overflow-x:auto;">`;
-                    html += `<table class="tabela-comparativa"><tr><th>${parseCitations(tabData[0].Perspectiva)}</th><th>${parseCitations(tabData[0].Noutético)}</th><th>${parseCitations(tabData[0]['Foco no Coração'])}</th></tr>`;
-                    for(let i = 1; i < tabData.length; i++) {
-                         html += `<tr><td><strong>${parseCitations(tabData[i].Perspectiva)}</strong></td><td>${parseCitations(tabData[i].Noutético)}</td><td>${parseCitations(tabData[i]['Foco no Coração'])}</td></tr>`;
-                    }
-                    html += `</table></div>`;
-                }
-
-                if (data.principios_praticos) {
-                     data.principios_praticos.principios.forEach(p => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(p.nome)}</h4><p>${parseCitations(p.descricao)}</p></div>`;
-                    });
-                }
-                
-                if (data.fases_processo) {
-                    html += `<h3>${parseCitations(data.fases_processo.titulo)}</h3><p>${parseCitations(data.fases_processo.introducao)}</p>`;
-                    data.fases_processo.fases.forEach(f => {
-                        html += `<p><strong>${f.numero}. ${parseCitations(f.nome)}:</strong> ${parseCitations(f.descricao)}</p>`;
-                    });
-                }
-                
-                if (data.detalhes_fases) {
-                    data.detalhes_fases.forEach(f => {
-                         html += `<div class="card"><h4 class="card-titulo">${parseCitations(f.fase)}</h4><p>${parseCitations(f.descricao)}</p></div>`;
-                    });
-                }
-                
-                if (data.casos_simulados) {
-                    data.casos_simulados.forEach(caso => {
-                        html += `<h3>${parseCitations(caso.titulo)}</h3>`;
-                        caso.fases.forEach(fase => {
-                            html += `<div class="card"><h4 class="card-titulo">${parseCitations(fase.fase)}</h4><p>${parseCitations(fase.descricao)}</p></div>`;
-                        });
-                    });
-                }
-                
-                if (data.bibliografia) {
-                    const bib = data.bibliografia;
-                    html += `<h3>${parseCitations(bib.obras_fundamentais.titulo)}</h3>`;
-                    bib.obras_fundamentais.livros.forEach(l => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(l.titulo)}</h4><p><em>Autor: ${parseCitations(l.autor)}</em></p><p>${parseCitations(l.descricao)}</p></div>`;
-                    });
-                    html += `<h3>${parseCitations(bib.obras_topicos_especificos.titulo)}</h3>`;
-                     bib.obras_topicos_especificos.livros.forEach(l => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(l.titulo)}</h4><p><em>Autor: ${parseCitations(l.autor)}</em></p><p>${parseCitations(l.descricao)}</p></div>`;
-                    });
-                    html += `<h3>${parseCitations(bib.organizacoes_recursos.titulo)}</h3>`;
-                     bib.organizacoes_recursos.recursos.forEach(r => {
-                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(r.nome)}</h4><p>${parseCitations(r.descricao)}</p></div>`;
-                    });
-                }
-
-                conteudoCentral.innerHTML = html;
-            }
-        });
+        // Initialize with the first section visible
+        showSection('fundamentos');
     </script>
-
-</body>
-</html>
