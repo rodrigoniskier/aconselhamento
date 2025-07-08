@@ -1,510 +1,414 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ferramenta Integrada de Aconselhamento Bíblico</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;600&display=swap" rel="stylesheet">
-    
-    <!-- 
-    Plano de Estrutura e Design:
-    Esta é uma aplicação de página única (SPA) que consolida os conceitos de três documentos principais sobre aconselhamento bíblico em uma ferramenta coesa e interativa. A estrutura segue um fluxo lógico, guiando o conselheiro desde a base teológica até a aplicação prática.
-
-    1.  **Paleta de Cores e Tipografia:** Usei uma paleta de cores sóbria e profissional (ardósia, âmbar, azul e branco) para criar um ambiente calmo e focado. A tipografia combina 'Poppins' para títulos (moderna e clara) e 'Source Serif 4' para o corpo do texto (elegante e legível), melhorando a experiência de leitura.
-    2.  **Navegação e Layout:** Uma barra de navegação fixa no topo com rolagem suave permite acesso rápido a todas as seções. O layout é baseado em grade e flexbox para garantir total responsividade em dispositivos móveis, tablets e desktops.
-    3.  **Visualização de Dados (Chart.js):**
-        - **Gráfico de Rosca (O Coração):** Visualiza as três funções do coração (Razão, Afetos, Vontade). Essa representação gráfica é mais impactante e fácil de memorizar do que um texto simples.
-        - **Gráfico de Radar (Diagnóstico):** Ferramenta interativa central. Permite ao conselheiro mapear visualmente a intensidade dos "ídolos funcionais" do aconselhado, transformando um conceito abstrato em um diagnóstico visual e concreto.
-    4.  **Componentes Interativos (HTML/CSS/JS):**
-        - **Acordeão de Perguntas:** As "Perguntas Raio-X" de Powlison são organizadas em um acordeão. Isso evita sobrecarga de informação, permitindo que o conselheiro foque em uma categoria de cada vez.
-        - **Cartões de Ídolos Clicáveis:** A seleção de um "ídolo" atualiza dinamicamente a seção "A Cura", conectando diretamente o problema (diagnóstico) à solução (o Evangelho). Isso torna a aplicação do remédio bíblico contextual e específica.
-        - **Diagrama de Processo (Despojar/Revestir):** Um diagrama de fluxo visual criado com Flexbox para ilustrar claramente o processo de santificação prática de Efésios 4.
-
-    O objetivo geral é transformar documentos estáticos em uma ferramenta de ministério viva, que pode ser usada durante uma sessão de aconselhamento para facilitar o entendimento e a aplicação da verdade bíblica.
-    -->
+    <title>Aconselhamento Reformado: Teologia e Prática</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Slab:wght@300;400;700&display=swap');
+
+        :root {
+            --cor-primaria: #0d47a1;
+            --cor-secundaria: #1976d2;
+            --cor-destaque: #fdd835;
+            --cor-texto: #333;
+            --cor-fundo: #f4f6f8;
+            --cor-branco: #ffffff;
+            --sombra-card: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
+            font-family: 'Roboto Slab', serif;
+            line-height: 1.8;
+            color: var(--cor-texto);
+            background-color: var(--cor-fundo);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
         }
-        p, li, blockquote {
-            font-family: 'Source Serif 4', serif;
+
+        header {
+            background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+            color: var(--cor-branco);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--cor-destaque);
         }
-        .nav-link {
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        #menu {
+            background-color: var(--cor-branco);
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: var(--sombra-card);
+            text-align: center;
+        }
+
+        .menu-btn {
+            background-color: var(--cor-secundaria);
+            color: var(--cor-branco);
+            border: none;
+            padding: 12px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
         }
-        .nav-link:hover, .nav-link.active {
-            color: #1d4ed8; /* blue-700 */
-            border-bottom-color: #1d4ed8;
+
+        .menu-btn:hover, .menu-btn.active {
+            background-color: var(--cor-primaria);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
-        details > summary {
-            list-style: none;
+
+        main {
+            flex-grow: 1;
         }
-        details > summary::-webkit-details-marker {
-            display: none;
+
+        #conteudo-central {
+            background-color: var(--cor-branco);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--sombra-card);
+            min-height: 400px;
+            transition: opacity 0.5s ease;
         }
-        .idol-card.selected {
-            border-color: #d97706; /* amber-600 */
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+        #conteudo-central h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--cor-primaria);
+            border-bottom: 2px solid var(--cor-destaque);
+            padding-bottom: 10px;
+            margin-top: 0;
         }
-        .chart-container {
-            position: relative;
-            margin: auto;
-            height: 350px;
+        
+        #conteudo-central h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--cor-secundaria);
+            margin-top: 30px;
+        }
+
+        .card {
+            background-color: var(--cor-fundo);
+            border-left: 5px solid var(--cor-secundaria);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        
+        .card-titulo {
+            font-weight: 700;
+            color: var(--cor-primaria);
+            margin-top: 0;
+        }
+
+        .lista-interativa li {
+            padding: 10px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .lista-interativa li:last-child {
+            border-bottom: none;
+        }
+        
+        .tabela-comparativa {
             width: 100%;
-            max-width: 450px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .tabela-comparativa th, .tabela-comparativa td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .tabela-comparativa th {
+            background-color: var(--cor-primaria);
+            color: var(--cor-branco);
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .tabela-comparativa tr:nth-child(even) {
+            background-color: var(--cor-fundo);
+        }
+
+        .citation {
+            color: var(--cor-secundaria);
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: help;
+            transition: color 0.3s;
+        }
+        .citation:hover {
+            color: var(--cor-primaria);
+        }
+
+        footer {
+            background-color: var(--cor-texto);
+            color: var(--cor-branco);
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* Estilos para responsividade */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .menu-btn {
+                display: block;
+                width: 100%;
+                margin: 8px 0;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body>
 
-    <!-- Header e Navegação -->
-    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-md">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold text-slate-900">Aconselhamento Bíblico</h1>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#fundamentos" class="nav-link font-medium text-slate-600">Fundamentos</a>
-                <a href="#diagnostico" class="nav-link font-medium text-slate-600">Diagnóstico</a>
-                <a href="#cura" class="nav-link font-medium text-slate-600">A Cura</a>
-                <a href="#pratica" class="nav-link font-medium text-slate-600">Prática</a>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden text-slate-800">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
-            <a href="#fundamentos" class="mobile-nav-link block py-3 px-6 text-slate-700 hover:bg-slate-100">Fundamentos</a>
-            <a href="#diagnostico" class="mobile-nav-link block py-3 px-6 text-slate-700 hover:bg-slate-100">Diagnóstico</a>
-            <a href="#cura" class="mobile-nav-link block py-3 px-6 text-slate-700 hover:bg-slate-100">A Cura</a>
-            <a href="#pratica" class="mobile-nav-link block py-3 px-6 text-slate-700 hover:bg-slate-100">Prática</a>
+    <header>
+        <div class="container">
+            <h1>Aconselhamento Reformado: Teologia e Prática</h1>
         </div>
     </header>
 
-    <main class="container mx-auto p-6 md:p-12">
+    <div class="container">
+        <nav id="menu">
+            </nav>
 
-        <!-- Seção de Introdução -->
-        <section id="intro" class="text-center my-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">Uma Ferramenta para o<br>Aconselhamento Centrado no Coração</h2>
-            <p class="mt-6 text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">Esta página integra os princípios essenciais do aconselhamento bíblico para equipar o conselheiro a sondar as profundezas do coração e aplicar o poder transformador do Evangelho.</p>
-        </section>
+        <main id="conteudo-central">
+            <h2>Bem-vindo!</h2>
+            <p>Selecione um tópico no menu acima para explorar o conteúdo de forma interativa. Este material foi desenvolvido para ser um guia didático sobre a teologia e prática do aconselhamento cristão na tradição reformada.</p>
+        </main>
+    </div>
 
-        <!-- Seção de Fundamentos -->
-        <section id="fundamentos" class="scroll-mt-24 mb-24">
-            <div class="text-center mb-12">
-                <span class="text-sm font-semibold text-blue-800 bg-blue-100 rounded-full px-4 py-1">Capítulo 1</span>
-                <h3 class="text-3xl font-bold mt-3 text-slate-900">Os Fundamentos Inegociáveis</h3>
-            </div>
-
-            <div class="grid md:grid-cols-5 gap-8 items-center">
-                <!-- Conceito do Coração -->
-                <div class="md:col-span-3 bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-                    <h4 class="text-2xl font-bold text-slate-900 mb-4">O Coração: Nosso Centro de Controle</h4>
-                    <p class="text-slate-600 mb-4">A teologia bíblica ensina que o coração é muito mais do que a sede das emoções. É o centro de comando da vida interior, a fonte de onde emanam todos os nossos pensamentos, desejos, intenções e ações. É quem nós realmente somos (Provérbios 27:19).</p>
-                    <p class="text-slate-600">Portanto, o aconselhamento que busca uma mudança genuína não pode focar apenas no comportamento (os frutos), mas deve, necessariamente, tratar da condição do coração (a raiz).</p>
-                </div>
-
-                <!-- Gráfico do Coração -->
-                <div class="md:col-span-2">
-                    <div class="chart-container">
-                        <canvas id="heartChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Suficiência das Escrituras -->
-            <div class="mt-16 bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-                <h4 class="text-2xl font-bold text-slate-900 mb-6 text-center">A Suficiência das Escrituras</h4>
-                <div class="grid md:grid-cols-3 gap-8 text-center">
-                    <div>
-                        <div class="mx-auto bg-blue-100 text-blue-700 w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4">📖</div>
-                        <h5 class="text-xl font-semibold mb-2">Autoridade Divina</h5>
-                        <p class="text-slate-600 text-sm">A Palavra de Deus é inspirada e inerrante, nossa única regra de fé e prática. Ela possui a autoridade final para definir a verdade sobre Deus, o homem e a vida (2 Timóteo 3:16-17).</p>
-                    </div>
-                    <div>
-                        <div class="mx-auto bg-blue-100 text-blue-700 w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4">⚡️</div>
-                        <h5 class="text-xl font-semibold mb-2">Poder Transformador</h5>
-                        <p class="text-slate-600 text-sm">A Escritura é "viva e eficaz", capaz de penetrar até o mais íntimo do ser, "discernindo os pensamentos e propósitos do coração" e operando a verdadeira transformação (Hebreus 4:12).</p>
-                    </div>
-                     <div>
-                        <div class="mx-auto bg-blue-100 text-blue-700 w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4">💡</div>
-                        <h5 class="text-xl font-semibold mb-2">Revelação Completa</h5>
-                        <p class="text-slate-600 text-sm">Nela, Deus nos deu tudo o que precisamos para a vida e a piedade. Ela é suficiente para nos tornar sábios para a salvação e nos equipar para toda boa obra.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Seção de Diagnóstico -->
-        <section id="diagnostico" class="scroll-mt-24 mb-24">
-            <div class="text-center mb-12">
-                <span class="text-sm font-semibold text-amber-800 bg-amber-100 rounded-full px-4 py-1">Capítulo 2</span>
-                <h3 class="text-3xl font-bold mt-3 text-slate-900">O Diagnóstico do Coração</h3>
-                <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">Para ajudar alguém, precisamos entender o "porquê" por trás do "o quê". Use as Perguntas Raio-X para investigar as motivações profundas e identificar os ídolos funcionais que governam o coração.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Acordeão de Perguntas -->
-                <div class="space-y-4">
-                     <h4 class="text-2xl font-bold text-slate-900 mb-4">Investigação: Perguntas Raio-X</h4>
-                    <div id="questions-accordion"></div>
-                </div>
-
-                <!-- Gráfico de Ídolos -->
-                <div>
-                    <h4 class="text-2xl font-bold text-slate-900 mb-4">Visualização: Ídolos Funcionais</h4>
-                    <p class="text-slate-600 mb-6">Use o gráfico para mapear a influência dos desejos que competem com Deus no coração do aconselhado. Ajuste a intensidade de cada área conforme a conversa avança.</p>
-                     <div class="chart-container" style="max-width: 500px; height: 400px;">
-                        <canvas id="idolsChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Seção da Cura -->
-        <section id="cura" class="scroll-mt-24 mb-24">
-            <div class="text-center mb-12">
-                <span class="text-sm font-semibold text-emerald-800 bg-emerald-100 rounded-full px-4 py-1">Capítulo 3</span>
-                <h3 class="text-3xl font-bold mt-3 text-slate-900">A Cura: Aplicando o Remédio do Evangelho</h3>
-                <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">A descoberta do ídolo não é o fim, mas o ponto de partida para a verdadeira cura. A solução não é autoajuda, mas a aplicação específica da obra de Cristo ao coração.</p>
-            </div>
-            
-            <!-- Seleção de Ídolos -->
-            <div id="idols-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8"></div>
-
-            <!-- Conteúdo do Remédio -->
-            <div id="remedy-content" class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200 min-h-[200px] transition-all duration-300">
-                <p class="text-slate-500 text-center">Selecione um ídolo acima para ver o diagnóstico e o remédio do Evangelho correspondente.</p>
-            </div>
-        </section>
-
-        <!-- Seção da Prática -->
-        <section id="pratica" class="scroll-mt-24">
-            <div class="text-center mb-12">
-                <span class="text-sm font-semibold text-rose-800 bg-rose-100 rounded-full px-4 py-1">Capítulo 4</span>
-                <h3 class="text-3xl font-bold mt-3 text-slate-900">A Prática da Transformação</h3>
-                 <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">A mudança do coração se manifesta em uma nova maneira de viver. O modelo bíblico é claro: abandonar o velho homem e se revestir do novo, criado em justiça.</p>
-            </div>
-            
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-200">
-                <div class="flex flex-col md:flex-row items-center justify-center gap-6 text-center">
-                    
-                    <!-- Despojar -->
-                    <div class="w-full md:w-1/3 p-6 bg-rose-50 rounded-lg">
-                         <h4 class="text-xl font-bold text-rose-800 mb-2">1. Despojar (Ef. 4:22)</h4>
-                         <p class="text-slate-600">Reconhecer e confessar os pensamentos, desejos e comportamentos pecaminosos (os ídolos e seus frutos) através de um arrependimento sincero.</p>
-                         <p class="mt-3 text-sm font-semibold italic text-rose-900">Pergunta: "Qual mentira específica você precisa abandonar pela fé?"</p>
-                    </div>
-
-                    <div class="text-3xl text-slate-300 font-light">&rarr;</div>
-
-                    <!-- Renovar -->
-                    <div class="w-full md:w-1/3 p-6 bg-amber-50 rounded-lg">
-                        <h4 class="text-xl font-bold text-amber-800 mb-2">2. Renovar (Ef. 4:23)</h4>
-                        <p class="text-slate-600">Substituir as mentiras do coração pela Verdade da Palavra de Deus. Meditar nas promessas e no caráter de Deus revelados em Cristo.</p>
-                        <p class="mt-3 text-sm font-semibold italic text-amber-900">Pergunta: "Qual verdade da Bíblia confronta diretamente essa mentira?"</p>
-                    </div>
-                    
-                    <div class="text-3xl text-slate-300 font-light">&rarr;</div>
-
-                    <!-- Revestir -->
-                    <div class="w-full md:w-1/3 p-6 bg-emerald-50 rounded-lg">
-                        <h4 class="text-xl font-bold text-emerald-800 mb-2">3. Revestir (Ef. 4:24)</h4>
-                        <p class="text-slate-600">Praticar ativamente novas ações motivadas pelo amor a Deus e ao próximo, como reflexo da nova identidade e do novo coração em Cristo.</p>
-                        <p class="mt-3 text-sm font-semibold italic text-emerald-900">Pergunta: "Qual passo prático demonstra sua fé nessa nova verdade?"</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-slate-800 text-slate-300 mt-24">
-        <div class="container mx-auto py-8 px-6 text-center">
-            <p class="text-sm">Ferramenta desenvolvida com base nos materiais de aconselhamento bíblico, incluindo a obra "Perguntas Raio-X" de David A. Powlison.</p>
-            <p class="text-xs mt-2 text-slate-400">&copy; 2024. Criado para o avanço do ministério da Palavra.</p>
-        </div>
+    <footer>
+        <p>Desenvolvido por Rodrigo Niskier e Gemini.</p>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menu = document.getElementById('menu');
+            const conteudoCentral = document.getElementById('conteudo-central');
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
+            const menuConfig = {
+                "Fundamentos": { file: 'fundamentos_e_conselheiro.json', key: 'fundamentos' },
+                "O Conselheiro": { file: 'fundamentos_e_conselheiro.json', key: 'conselheiro' },
+                "Modelos e Métodos": { file: 'modelos_e_processo.json', key: 'modelos_metodos' },
+                "O Processo": { file: 'modelos_e_processo.json', key: 'processo_aconselhamento' },
+                "Temas Pastorais": { file: 'temas_e_contextos.json', key: 'temas_pastorais' },
+                "Saúde Emocional e Vícios": { file: 'temas_e_contextos.json', key: 'saude_emocional_vicios' },
+                "Contexto Familiar": { file: 'temas_e_contextos.json', key: 'contexto_familiar_conjugal' },
+                "Situações de Crise": { file: 'temas_e_contextos.json', key: 'situacoes_crise' },
+                "Estudos de Caso": { file: 'temas_e_contextos.json', key: 'teoria_pratica' },
+                "A Igreja como Agente de Cura": { file: 'temas_e_contextos.json', key: 'aconselhamento_comunidade' },
+                "Conclusão": { file: 'temas_e_contextos.json', key: 'conclusao' },
+                "Bibliografia": { file: 'temas_e_contextos.json', key: 'bibliografia' }
+            };
 
-    // --- Dados da Aplicação ---
-    const appData = {
-        questions: [
-            {
-                category: "Amor, Desejo e Vontade",
-                items: [
-                    "O que você ama? O que você odeia?",
-                    "O que você quer, deseja, anseia ou cobiça?",
-                    "Quais são seus alvos e expectativas na vida?",
-                    "Sobre o que você alicerça a sua esperança?"
-                ]
-            },
-            {
-                category: "Medos e Preocupações",
-                items: [
-                    "O que você teme? O que você não quer que aconteça?",
-                    "O que o deixa preocupado ou ansioso?",
-                    "Quando pressionado, para onde você se volta em busca de alívio ou escape?"
-                ]
-            },
-            {
-                category: "Confiança, Segurança e Adoração",
-                items: [
-                    "Em quem ou no que você confia para ter segurança e paz?",
-                    "Onde você encontra seu refúgio e conforto?",
-                    "O que realmente importa para você? O que orienta o seu mundo?",
-                    "Quais são seus ídolos ou 'deuses funcionais'?"
-                ]
-            },
-            {
-                category: "Identidade e Valor",
-                items: [
-                    "A quem você precisa agradar? Qual opinião conta mais para você?",
-                    "Onde você encontra sua identidade? Como você define quem você é?",
-                    "Como você define sucesso ou fracasso?",
-                    "Aos olhos de quem você está vivendo?"
-                ]
+            // Criar botões do menu
+            for (const nomeBotao in menuConfig) {
+                const btn = document.createElement('button');
+                btn.className = 'menu-btn';
+                btn.textContent = nomeBotao;
+                btn.dataset.file = menuConfig[nomeBotao].file;
+                btn.dataset.key = menuConfig[nomeBotao].key;
+                menu.appendChild(btn);
             }
-        ],
-        idols: {
-            "Controle": {
-                description: "Eu preciso estar no comando. Peco quando as coisas ou pessoas saem do meu controle.",
-                remedy: {
-                    title: "O Remédio para o Ídolo do Controle",
-                    repentance: "Leve o aconselhado a confessar não apenas a tentativa de controlar, mas a incredulidade na soberania e bondade de Deus. É um pecado de querer ocupar o trono de Deus. Ex: 'Senhor, perdoa-me por agir como se eu fosse o soberano da minha vida e por não confiar no Teu governo perfeito e amoroso.'",
-                    faith: "Mostre a beleza da soberania de Cristo, que governa todas as coisas com sabedoria e poder para o bem do seu povo (Romanos 8:28). Ele é o Rei digno de confiança, em cujas mãos podemos descansar e entregar o fardo do controle.",
-                    questions: [
-                        "Como a verdade de que Cristo é o Rei soberano liberta você da ansiedade de ter que controlar tudo?",
-                        "O que Jesus, o Senhor do Universo, oferece que é melhor do que a frágil ilusão do seu próprio controle?"
-                    ]
+
+            menu.addEventListener('click', (e) => {
+                if (e.target.classList.contains('menu-btn')) {
+                    const { file, key } = e.target.dataset;
+                    
+                    document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    carregarConteudo(file, key);
                 }
-            },
-            "Conforto": {
-                description: "Eu preciso de uma vida fácil e sem dor. Peco quando a vida fica difícil ou desconfortável.",
-                remedy: {
-                    title: "O Remédio para o Ídolo do Conforto",
-                    repentance: "Ajude na confissão de amar o alívio imediato e a facilidade mais do que a obediência e a glória de Deus. Ex: 'Pai, perdoa-me por amar mais o meu conforto do que a Tua vontade e o Teu chamado para a santidade, mesmo no sofrimento.'",
-                    faith: "Apresente Cristo como nosso verdadeiro descanso e paz (Mateus 11:28-30). Aponte para a promessa de um consolo eterno que supera infinitamente as aflições presentes (2 Coríntios 4:17) e para o Espírito Santo, o Consolador prometido.",
-                    questions: [
-                        "Como a promessa de descanso eterno em Cristo dá a você força para perseverar no desconforto presente?",
-                        "O que Jesus, que abriu mão de todo o conforto por nós, oferece que é mais valioso do que uma vida fácil?"
-                    ]
-                }
-            },
-            "Aprovação": {
-                description: "Eu preciso ser amado, respeitado e aceito. Peco quando me sinto rejeitado ou criticado.",
-                remedy: {
-                    title: "O Remédio para o Ídolo da Aprovação",
-                    repentance: "Conduza ao arrependimento por temer mais os homens do que a Deus e por buscar nos outros a identidade que só se encontra em Cristo. Ex: 'Senhor, perdoa-me por buscar minha identidade e meu valor na opinião instável das pessoas e não na forma como Tu me vês em Cristo.'",
-                    faith: "Celebre a justificação pela fé. Em Cristo, somos plenamente aceitos, amados e aprovados pelo único cuja opinião importa (Romanos 8:33-34). A aprovação de Deus é nosso status fixo e inabalável.",
-                    questions: [
-                        "Como sua identidade de 'aceito no Amado' (Efésios 1:6) liberta você da escravidão de precisar da aprovação dos outros?",
-                        "O que a aprovação de Deus, garantida em Cristo, oferece que é mais seguro do que o aplauso das pessoas?"
-                    ]
-                }
-            },
-            "Poder": {
-                description: "Eu preciso de influência e respeito. Peco para manter minha posição ou para que as coisas sejam feitas do meu jeito.",
-                remedy: {
-                    title: "O Remédio para o Ídolo do Poder",
-                    repentance: "Ajude na confissão do orgulho, da auto-exaltação e de usar as pessoas para fins egoístas. Ex: 'Pai, perdoa-me por buscar minha própria glória e por usar minha influência para servir a mim mesmo, em vez de servir aos outros como Cristo fez.'",
-                    faith: "Aponte para Cristo, que, sendo o mais poderoso, esvaziou-se e tornou-se servo (Filipenses 2:5-8). O verdadeiro poder no Reino de Deus é o poder de servir em amor, capacitado pelo Espírito Santo, para a glória de Deus.",
-                    questions: [
-                        "Como o exemplo de Cristo como servo redefine para você o que é o verdadeiro poder?",
-                        "O que o Reino de Cristo oferece que é infinitamente melhor do que a influência e o poder deste mundo?"
-                    ]
-                }
-            },
-            "Prazer": {
-                description: "Eu preciso me sentir bem agora. Peco para fugir da dor ou buscar prazer imediato.",
-                remedy: {
-                    title: "O Remédio para o Ídolo do Prazer",
-                    repentance: "Conduza ao arrependimento por buscar satisfação em cisternas rotas em vez de na Fonte de Água Viva. Ex: 'Senhor, perdoa-me por buscar refúgio em prazeres que não satisfazem e por desonrar a Ti, que és a fonte de toda a verdadeira alegria.'",
-                    faith: "Mostre que somente em Deus há 'abundância de alegrias' e 'delícias perpetuamente' (Salmo 16:11). Cristo nos oferece a 'água viva' que satisfaz a sede mais profunda da nossa alma, um prazer superior a qualquer prazer terreno.",
-                    questions: [
-                        "Como a promessa de alegria eterna em Cristo liberta você da busca desesperada por prazer imediato?",
-                        "O que Jesus, a fonte de toda alegria, oferece que é mais satisfatório e duradouro do que os prazeres fugazes do pecado?"
-                    ]
-                }
+            });
+            
+            function parseCitations(text) {
+                if (!text) return '';
+                return text.replace(/\+)\]/g, '<span class="citation" title="Fonte: $1">[$1]</span>');
             }
-        }
-    };
 
-    let idolsChart = null;
-
-    // --- Funções de Inicialização e Renderização ---
-
-    function createHeartChart() {
-        const ctx = document.getElementById('heartChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Razão (Pensamentos, Crenças)', 'Afetos (Emoções, Sentimentos)', 'Volição (Desejos, Vontade)'],
-                datasets: [{
-                    data: [33.3, 33.3, 33.3],
-                    backgroundColor: ['rgba(59, 130, 246, 0.7)', 'rgba(249, 115, 22, 0.7)', 'rgba(22, 163, 74, 0.7)'],
-                    borderColor: ['#ffffff'],
-                    borderWidth: 3
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { font: { family: "'Poppins', sans-serif", size: 12 } }
-                    },
-                    title: {
-                        display: true,
-                        text: 'As Funções do Coração',
-                        font: { family: "'Poppins', sans-serif", size: 16, weight: 'bold' }
+            async function carregarConteudo(file, key) {
+                conteudoCentral.style.opacity = '0';
+                try {
+                    const response = await fetch(file);
+                    if (!response.ok) {
+                        throw new Error(`Erro ao carregar o arquivo: ${response.statusText}`);
                     }
+                    const data = await response.json();
+                    const conteudo = data[key];
+                    
+                    setTimeout(() => {
+                        renderizarConteudo(conteudo);
+                        conteudoCentral.style.opacity = '1';
+                    }, 300);
+
+                } catch (error) {
+                    console.error('Falha ao buscar conteúdo:', error);
+                    conteudoCentral.innerHTML = `<h2>Erro</h2><p>Não foi possível carregar o conteúdo solicitado. Verifique o console para mais detalhes.</p>`;
+                    conteudoCentral.style.opacity = '1';
                 }
             }
-        });
-    }
 
-    function populateQuestions() {
-        const container = document.getElementById('questions-accordion');
-        let html = appData.questions.map(group => `
-            <details class="bg-white border border-slate-200 rounded-lg shadow-sm transition-shadow hover:shadow-md">
-                <summary class="flex justify-between items-center p-4 cursor-pointer">
-                    <span class="font-semibold text-slate-800">${group.category}</span>
-                    <svg class="w-5 h-5 text-slate-500 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </summary>
-                <div class="p-4 border-t border-slate-200">
-                    <ul class="list-disc list-inside space-y-2 text-slate-600">
-                        ${group.items.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                </div>
-            </details>
-        `).join('');
-        container.innerHTML = html;
-        container.querySelectorAll('details').forEach(detail => {
-            detail.addEventListener('toggle', (e) => {
-                const arrow = e.target.querySelector('summary svg');
-                arrow.classList.toggle('rotate-180', e.target.open);
-            });
-        });
-    }
+            function renderizarConteudo(data) {
+                let html = `<h2>${parseCitations(data.titulo)}</h2>`;
+                if (data.introducao) {
+                    html += `<p>${parseCitations(data.introducao)}</p>`;
+                }
+                if (data.texto) {
+                    html += `<p>${parseCitations(data.texto)}</p>`;
+                }
 
-    function createIdolsChart() {
-        const ctx = document.getElementById('idolsChart').getContext('2d');
-        const idolKeys = Object.keys(appData.idols);
-        idolsChart = new Chart(ctx, {
-            type: 'radar',
-            data: {
-                labels: idolKeys,
-                datasets: [{
-                    label: 'Intensidade da Motivação',
-                    data: Array(idolKeys.length).fill(5),
-                    backgroundColor: 'rgba(217, 119, 6, 0.2)',
-                    borderColor: 'rgba(217, 119, 6, 1)',
-                    borderWidth: 2,
-                    pointBackgroundColor: 'rgba(217, 119, 6, 1)',
-                    pointBorderColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: { r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 10, pointLabels: { font: { size: 12, weight: 'bold' } } } },
-                plugins: { legend: { display: false } }
+                // Renderizadores específicos para cada tipo de estrutura de dados
+                if (data.conteudo) {
+                    data.conteudo.forEach(item => {
+                        html += `<h3>${parseCitations(item.subtitulo)}</h3><p>${parseCitations(item.texto)}</p>`;
+                    });
+                }
+                
+                if (data.tradicoes_relevantes) {
+                    const trad = data.tradicoes_relevantes;
+                    html += `<h3>${parseCitations(trad.titulo)}</h3><p>${parseCitations(trad.introducao)}</p>`;
+                    trad.tradicoes.forEach(t => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(t.nome)}</h4><p>${parseCitations(t.descricao)}</p></div>`;
+                    });
+                }
+
+                if (data.bases_biblicas) {
+                    const bases = data.bases_biblicas;
+                    html += `<h3>${parseCitations(bases.titulo)}</h3><p>${parseCitations(bases.introducao)}</p>`;
+                    bases.pilares.forEach(p => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(p.nome)}</h4><p>${parseCitations(p.descricao)}</p></div>`;
+                    });
+                }
+
+                if (data.qualidades_essenciais) {
+                    const qual = data.qualidades_essenciais;
+                    html += `<h3>${parseCitations(qual.titulo)}</h3><p>${parseCitations(qual.introducao)}</p>`;
+                    qual.qualidades.forEach(q => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(q.nome)}</h4><p>${parseCitations(q.descricao)}</p></div>`;
+                    });
+                }
+                
+                if (data.responsabilidades_limites || data.analise_modelos_seculares || data.ministerio_consolo || data.areas_especificas || data.sofrimento_interno || data.abordagem_risco || data.luto_agudo) {
+                    const section = data.responsabilidades_limites || data.analise_modelos_seculares || data.ministerio_consolo || data.areas_especificas || data.sofrimento_interno || data.abordagem_risco || data.luto_agudo;
+                    html += `<h3>${parseCitations(section.titulo)}</h3>`;
+                    if (section.introducao) html += `<p>${parseCitations(section.introducao)}</p>`;
+                    const items = section.topicos || section.modelos;
+                    items.forEach(item => {
+                         html += `<div class="card"><h4 class="card-titulo">${parseCitations(item.nome)}</h4><p>${parseCitations(item.descricao)}</p></div>`;
+                    });
+                }
+
+                if (data.formacao_discernimento) {
+                    const form = data.formacao_discernimento;
+                    html += `<h3>${parseCitations(form.titulo)}</h3><p>${parseCitations(form.introducao)}</p>`;
+                    
+                    const psico = form.diferenca_psicoterapia;
+                    html += `<div class="card"><h4 class="card-titulo">${parseCitations(psico.titulo)}</h4><p>${parseCitations(psico.introducao)}</p><ul class="lista-interativa">`;
+                    psico.diferencas.forEach(d => {
+                        html += `<li><strong>${parseCitations(d.ponto)}:</strong> ${parseCitations(d.biblico)} <em>vs.</em> ${parseCitations(d.psicoterapia)}</li>`;
+                    });
+                    html += `</ul></div>`;
+                    
+                    const enc = form.criterios_encaminhamento;
+                    html += `<div class="card"><h4 class="card-titulo">${parseCitations(enc.titulo)}</h4><p>${parseCitations(enc.introducao)}</p>`;
+                    enc.criterios.forEach(c => {
+                         html += `<p><strong>${parseCitations(c.nome)}:</strong> ${parseCitations(c.descricao)}</p>`;
+                    });
+                    html += `</div>`;
+                }
+                
+                if (data.modelos_aconselhamento_biblico && data.modelos_aconselhamento_biblico.tabela) {
+                    const tabData = data.modelos_aconselhamento_biblico.tabela;
+                    html += `<h3>Comparativo de Gerações</h3>`;
+                    html += `<div class="tabela-comparativa-container" style="overflow-x:auto;">`;
+                    html += `<table class="tabela-comparativa"><tr><th>${parseCitations(tabData[0].Perspectiva)}</th><th>${parseCitations(tabData[0].Noutético)}</th><th>${parseCitations(tabData[0]['Foco no Coração'])}</th></tr>`;
+                    for(let i = 1; i < tabData.length; i++) {
+                         html += `<tr><td><strong>${parseCitations(tabData[i].Perspectiva)}</strong></td><td>${parseCitations(tabData[i].Noutético)}</td><td>${parseCitations(tabData[i]['Foco no Coração'])}</td></tr>`;
+                    }
+                    html += `</table></div>`;
+                }
+
+                if (data.principios_praticos) {
+                     data.principios_praticos.principios.forEach(p => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(p.nome)}</h4><p>${parseCitations(p.descricao)}</p></div>`;
+                    });
+                }
+                
+                if (data.fases_processo) {
+                    html += `<h3>${parseCitations(data.fases_processo.titulo)}</h3><p>${parseCitations(data.fases_processo.introducao)}</p>`;
+                    data.fases_processo.fases.forEach(f => {
+                        html += `<p><strong>${f.numero}. ${parseCitations(f.nome)}:</strong> ${parseCitations(f.descricao)}</p>`;
+                    });
+                }
+                
+                if (data.detalhes_fases) {
+                    data.detalhes_fases.forEach(f => {
+                         html += `<div class="card"><h4 class="card-titulo">${parseCitations(f.fase)}</h4><p>${parseCitations(f.descricao)}</p></div>`;
+                    });
+                }
+                
+                if (data.casos_simulados) {
+                    data.casos_simulados.forEach(caso => {
+                        html += `<h3>${parseCitations(caso.titulo)}</h3>`;
+                        caso.fases.forEach(fase => {
+                            html += `<div class="card"><h4 class="card-titulo">${parseCitations(fase.fase)}</h4><p>${parseCitations(fase.descricao)}</p></div>`;
+                        });
+                    });
+                }
+                
+                if (data.bibliografia) {
+                    const bib = data.bibliografia;
+                    html += `<h3>${parseCitations(bib.obras_fundamentais.titulo)}</h3>`;
+                    bib.obras_fundamentais.livros.forEach(l => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(l.titulo)}</h4><p><em>Autor: ${parseCitations(l.autor)}</em></p><p>${parseCitations(l.descricao)}</p></div>`;
+                    });
+                    html += `<h3>${parseCitations(bib.obras_topicos_especificos.titulo)}</h3>`;
+                     bib.obras_topicos_especificos.livros.forEach(l => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(l.titulo)}</h4><p><em>Autor: ${parseCitations(l.autor)}</em></p><p>${parseCitations(l.descricao)}</p></div>`;
+                    });
+                    html += `<h3>${parseCitations(bib.organizacoes_recursos.titulo)}</h3>`;
+                     bib.organizacoes_recursos.recursos.forEach(r => {
+                        html += `<div class="card"><h4 class="card-titulo">${parseCitations(r.nome)}</h4><p>${parseCitations(r.descricao)}</p></div>`;
+                    });
+                }
+
+                conteudoCentral.innerHTML = html;
             }
         });
-    }
-
-    function populateIdols() {
-        const container = document.getElementById('idols-container');
-        container.innerHTML = Object.keys(appData.idols).map(idolKey => `
-            <button class="idol-card text-left bg-white hover:bg-slate-100 p-4 rounded-lg shadow-sm border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-all duration-200" data-idol="${idolKey}">
-                <h4 class="font-bold text-slate-800">${idolKey}</h4>
-                <p class="text-sm text-slate-600 mt-1">${appData.idols[idolKey].description}</p>
-            </button>
-        `).join('');
-        container.querySelectorAll('.idol-card').forEach(card => {
-            card.addEventListener('click', () => {
-                container.querySelectorAll('.idol-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                updateRemedyContent(card.dataset.idol);
-            });
-        });
-    }
-
-    function updateRemedyContent(idolKey) {
-        const container = document.getElementById('remedy-content');
-        if (!idolKey) {
-            container.innerHTML = `<p class="text-slate-500 text-center">Selecione um ídolo acima para ver o diagnóstico e o remédio do Evangelho correspondente.</p>`;
-            return;
-        }
-        const remedy = appData.idols[idolKey].remedy;
-        container.innerHTML = `
-            <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-lg">
-                <h3 class="text-2xl font-bold text-amber-900 mb-4">${remedy.title}</h3>
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="font-semibold text-slate-800">1. Arrependimento (Afastar-se do Ídolo)</h4>
-                        <p class="text-slate-700 mt-1">${remedy.repentance}</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-slate-800">2. Fé (Voltar-se para Cristo)</h4>
-                        <p class="text-slate-700 mt-1">${remedy.faith}</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-slate-800">3. Perguntas para Aplicação:</h4>
-                        <ul class="list-disc list-inside space-y-2 text-slate-700 mt-2">
-                            ${remedy.questions.map(q => `<li>${q}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-            </div>`;
-    }
-
-    // --- Gerenciamento de Eventos ---
-
-    // Navegação Mobile
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-    });
-
-    // Navegação Ativa no Scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.id;
-                navLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('href').substring(1) === id);
-                });
-            }
-        });
-    }, { rootMargin: '-30% 0px -70% 0px' });
-    sections.forEach(section => observer.observe(section));
-
-
-    // --- Inicialização da Aplicação ---
-    createHeartChart();
-    populateQuestions();
-    createIdolsChart();
-    populateIdols();
-});
-</script>
+    </script>
 
 </body>
 </html>
