@@ -1,114 +1,1445 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aconselhamento Cristão Reformado</title>
-    <link href="styles.css" rel="stylesheet">
-    <script src="script.js" defer></script>
+    <title>Aconselhamento Reformado: Teologia e Prática</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .flashcard {
+            perspective: 1000px;
+        }
+        
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a2facf 0%, #64b3f4 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.2em;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+        
+        .highlight:hover {
+            background-size: 100% 100%;
+        }
+        
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .accordion-content.active {
+            max-height: 1000px;
+        }
+        
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .quiz-option.correct {
+            background-color: #dcfce7;
+            border-color: #16a34a;
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #fef2f2;
+            border-color: #dc2626;
+        }
+        
+        .content-section {
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item.active {
+            background-color: #f3f4f6;
+            color: #5D5CDE !important;
+        }
+        
+        .dark .nav-item.active {
+            background-color: #374151;
+            color: #a78bfa !important;
+        }
+        
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #5D5CDE;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .step-btn {
+            padding: 8px 16px;
+            background-color: #e5e7eb;
+            color: #6b7280;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+        
+        .step-btn:hover {
+            background-color: #d1d5db;
+        }
+        
+        .step-btn.active {
+            background-color: #5D5CDE;
+            color: white;
+        }
+        
+        .dark .step-btn {
+            background-color: #374151;
+            color: #d1d5db;
+        }
+        
+        .dark .step-btn:hover {
+            background-color: #4b5563;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#764ba2'
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="body">
-    <!-- Raw Content (Hidden) -->
-    <div id="raw-content" style="display: none;">
-        O aconselhamento cristão reformado busca conduzir o coração do adorador, que se desviou para ídolos, de volta para o Deus verdadeiro. A mudança permanente e significativa é um fruto desse processo, não o alvo em si mesmo. A história desta prática, conhecida teologicamente como poimênica, é tão antiga quanto a própria igreja. Suas raízes estão na imagem veterotestamentária de Deus como o Pastor de Israel (Salmo 23) e na autodesignação de Cristo como o "Bom Pastor" que dá a vida por suas ovelhas (João 10:11). Desde a igreja primitiva, o "cuidado de almas" (soul care) foi central, com João Calvino em Genebra praticando um ministério pastoral intenso, vendo o aconselhamento como uma função indispensável da igreja para cuidar das dores e sofrimentos de seus membros. As grandes confissões de fé reformadas, como a Confissão de Fé de Westminster, são ferramentas essenciais, pois sistematizam a doutrina bíblica de forma clara e aplicável. O capítulo 13 da Confissão, sobre a Santificação, por exemplo, descreve precisamente o processo que o aconselhamento busca facilitar: a mortificação do pecado e a vivificação em graça "pela sua palavra e pelo seu Espírito". Se os reformadores lançaram os fundamentos doutrinários, os puritanos ingleses dos séculos XVI e XVII construíram o edifício da teologia prática. Eles são corretamente chamados de "médicos da alma". Sua grande contribuição foi o desenvolvimento da casuística, a arte de aplicar os princípios bíblicos a "casos de consciência" específicos e complexos da vida cotidiana, tornando o aconselhamento cristão reformado robusto e prático. A suficiência das Escrituras é o princípio material do aconselhamento bíblico. A afirmação de que "Toda a Escritura é inspirada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça, para que o homem de Deus seja apto e plenamente preparado para toda boa obra" (2 Timóteo 3:16-17) é o nosso fundamento. A Bíblia é suficiente para diagnosticar e tratar todos os problemas não-orgânicos da alma humana. Ela nos revela tudo o que precisamos saber sobre Deus (Teologia Própria), sobre nós mesmos (Antropologia), sobre nosso problema fundamental (Hamartiologia), sobre a solução (Cristologia e Soteriologia) e sobre como viver de uma maneira que agrada a Deus (Santificação). Esta doutrina nos coloca em oposição direta às pressuposições seculares e humanistas da psicologia moderna, que negam a revelação e buscam a sabedoria dentro do próprio homem. As qualificações para o aconselhamento espelham as qualificações para a liderança cristã em geral, agrupadas em três áreas interdependentes: Qualidades Espirituais, Morais e Intelectuais. A base de toda a eficácia no aconselhamento é a piedade pessoal do conselheiro, manifestada primariamente no temor do Senhor, que é o princípio da sabedoria (Provérbios 1:7). Um conselheiro que não vive em comunhão íntima com Deus, que não é uma pessoa de oração (1 Tessalonicenses 5:17) e que não demonstra uma dependência humilde e sensível à direção do Espírito Santo, oferecerá conselhos vazios, mesmo que biblicamente corretos. O conselheiro deve ser um exemplo para o rebanho, possuindo um bom testemunho tanto dentro
-
-        one
-
-        quanto fora da igreja. A confidencialidade é essencial no relacionamento de aconselhamento. O aconselhado deve se sentir seguro para abrir seu coração sem medo de exposição ou fofoca. No Brasil, essa responsabilidade ética é reforçada por uma proteção legal. O Código Penal, em seu Artigo 154, tipifica como crime a violação de segredo profissional, e o Código de Processo Penal, no Artigo 207, proíbe que pessoas que devam guardar segredo em razão de "função, ministério, ofício ou profissão" sejam obrigadas a depor como testemunhas. Contudo, o dever de proteger a vida e o vulnerável (derivado do sexto mandamento) tem precedência sobre o sigilo em casos que perpet enmperpetuariam danos a um inocente. A ação correta é comunicar às autoridades competentes. Todo ministério de aconselhamento formal deve incluir um termo de consentimento informado, explicando claramente os limites da confidencialidade. O aconselhamento bíblico não é psicoterapia com versículos salpicados por cima. Suas diferenças são fundamentais e irreconciliáveis em seus pressupostos. A Bíblia é a autoridade final e suficiente, enquanto a psicoterapia se baseia em teorias psicológicas e na razão humana. O aconselhamento bíblico vê o homem como uma criatura de Deus, feita à Sua imagem, porém caída, pecadora e adoradora por natureza. Problemas como depressão severa, ansiedade paralisante ou comportamento psicótico podem ter componentes fisiológicos significativos (desequilíbrios químicos, problemas hormonais, lesões cerebrais). Nesses casos, o encaminhamento a um médico ou psiquiatra é um ato de cuidado integral e responsável, permitindo que o profissional da saúde trate o corpo enquanto o conselheiro pastoral continua a ministrar à alma. A metodologia do aconselhamento bíblico flui de sua teologia. O bom aconselhamento começa com uma escuta cuidadosa e ativa. O conselheiro deve resistir à vontade de "responder antes de ouvir", o que a Escritura chama de "tolice e vergonha" (Provérbios 18:13). A empatia bíblica vai além da simpatia secular, entrando no mundo do aconselhado para ver a situação de sua perspectiva e sentir o peso de sua luta, a fim de aplicar a Palavra de Deus com precisão. O conselheiro depende do Espírito Santo, orando antes, durante e após as sessões, e ensina o aconselhado a levar suas lutas a Deus em oração. O aconselhamento bíblico segue um fluxo lógico que visa conduzir o aconselhado da confusão e dor à clareza e santificação. Inspirado em modelos práticos de conselheiros como Wayne Mack e Lauren Whitman, o processo pode ser delineado em quatro fases principais: 1. Coleta de Dados (Inventário): Construir um relacionamento de confiança e obter uma compreensão abrangente da pessoa e seu problema. 2. Diagnóstico Pastoral (Interpretação): Analisar os dados coletados através das lentes das Escrituras. 3. Prescrição: Desenvolver um plano prático com tarefas bíblicas específicas. 4. Acompanhamento: Monitorar o progresso e ajustar o plano conforme necessário. Muitos ministérios utilizam um Inventário de Dados Pessoais (PDI) para coletar informações valiosas sobre o histórico da pessoa, economizando tempo e garantindo que áreas importantes não sejam negligenciadas. O aconselhamento bíblico aplica sua teologia a temas como crises espirituais, conflitos, luto, culpa, medo e ansiedade. Conflitos, segundo Tiago26Tiago 4:1-3, têm sua origem nos desejos que guerreiam dentro de nós, e a solução envolve arrependimento e perdão modelado no perdão de Cristo (Efésios 4:32). Crises de fé e dúvidas profundas requerem evitar respostas simplistas, oferecendo uma abordagem pastoral compassiva. No luto, o conselheiro deve "chorar com os que choram" (Romanos 12:15), enquadrando a dor na promessa da ressurreição (1 Tessalonicenses 4:13-18). Culpa e medo são tratados com precisão, chamando à fé e à confiança nas promessas de Deus. Na teologia bíblica, o vício é uma forma de idolatria. Como Calvino observou, o coração humano é uma "fábrica perpétua de ídolos". No vício, um desejo criado (por prazer, escape, conforto, controle) é elevado à posição de uma necessidade governante. A pornografia, uma forma prevalente de idolatria sexual, distorce a dádiva de Deus da sexualidade. A abordagem pastoral envolve confissão radical a Deus e a parceiros de responsabilidade, além de um plano prático para "fugir das paixões da mocidade" (2 Timóteo 2:22). Ansiedade pecaminosa é uma questão de fé, combatida com as promessas da Palavra de Deus e a prática da oração (Filipenses 4:6-7). Depressão requer discernimento de causas multifatoriais, oferecendo compaixão pela fraqueza corporal e ministração ao coração. O aconselhamento de casais na tradição reformada é fundamentado na teologia do pacto, visando restaurar o casamento ao seu desígnio original: refletir a glória de Deus (Efésios 5:32), prover companheirismo e ajuda mútua, e promover santificação. A comunicação deve edificar, falando "a verdade em amor" (Efésios 4:15) e buscando perdão e reconciliação (Colossenses 3:13). A sexualidade é uma dádiva de Deus para união, prazer e procriação, combatendo visões distorcidas do mundo e o legalismo puritano (1 Coríntios 7:3-5). A Confissão de Fé de Westminster (Capítulo 24.5-6) afirma a indissolubilidade do casamento, mas permite divórcio em casos de adultério (Mateus 19:9) e abandono por um cônjuge incrédulo (1 Coríntios 7:15). O aconselhamento é a primeira linha da disciplina eclesiástica (Mateus 18:15-17). O aconselhamento bíblico não é um evento isolado, mas uma dinâmica vital na vida da igreja. A igreja local é o hospital de Deus para pecadores, um ambiente terapêutico onde a graça é aplicada através da pregação da Palavra, discipulado e graça comum. O objetivo é reintegrar a pessoa na vida plena do corpo de Cristo, onde ela pode crescer e se tornar um instrumento de cura para outros. A doutrina da graça comum permite colaboração estratégica com profissionais da saúde mental, identificando médicos ou psicólogos cristãos ou respeitosos com a fé, garantindo cuidado holístico. Obras fundamentais incluem: "Conselheiro Capaz" de Jay Adams, que lançou o movimento moderno de aconselhamento bíblico em 1970, argumentando pela suficiência das Escrituras; "Vendo com Novos Olhos" de David Powlison, que aprofunda a teologia bíblica do coração; "Falando a Verdade em Amor" de Powlison, explorando a dimensão relacional do aconselhamento; "Instrumentos nas Mãos do Redentor" de Paul Tripp, equipando crentes para o ministério pessoal; "O Pastor Aprovado" de Richard Baxter, um clássico puritano sobre cuidado pastoral; "A Graça de Deus no seu Sofrimento" de Powlison, uma teologia pastoral do sofrimento; "Vícios: um Banquete no Túmulo" de Edward Welch, analisando vícios como idolatria. Recursos online: ABCB[](https://www.abcb.org.br/), CCEF[](https://www.ccef.org/), Conexão Conselho Bíblico[](https://conselhobiblico.com/). Referências citadas incluem artigos e apresentações acessados em 8 de julho de 2025, como "Aconselhamento Bíblico: O Que é?"[](https://ministerioler.com.br/aconselhamento-biblico-o-que-e/) e "João Calvino: Sua Visão Pastoral"[](https://www.monergismo.com/textos/calvino/calvino_pastor_gildasio.htm).
-
-        one
-
-        0
-    </div>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm z-50 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <h1 class="text-xl font-bold text-primary">Aconselhamento Reformado</h1>
+                <div class="flex items-center space-x-4">
+                    <div class="progress-container bg-gray-200 dark:bg-gray-700 rounded-full h-2 w-32">
+                        <div class="progress-bar bg-primary h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <button id="menuToggle" class="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-700">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Sidebar -->
-    <aside class="sidebar">
-        <h1 class="sidebar-title">Aconselhamento Reformado</h1>
-        <nav class="sidebar-nav">
-            <ul>
-                <li><button class="sidebar-btn" onclick="showSection('fundamentos')">Fundamentos</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('historia')">História</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('puritanos')">Tradição Puritana</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('suficiencia')">Suficiência das Escrituras</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('qualidades')">Qualidades do Conselheiro</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('etica')">Ética e Confidencialidade</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('psicoterapia')">Aconselhamento vs. Psicoterapia</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('metodologia')">Metodologia</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('processo')">Processo de Aconselhamento</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('temas')">Temas Pastorais</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('vicios')">Vícios e Idolatria</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('familia')">Aconselhamento Familiar</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('comunidade')">Aconselhamento na Comunidade</button></li>
-                <li><button class="sidebar-btn" onclick="showSection('recursos')">Recursos e Referências</button></li>
-            </ul>
-        </nav>
+    <aside id="sidebar" class="fixed left-0 top-16 h-full w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-40 overflow-y-auto">
+        <div class="p-6">
+            <h2 class="text-lg font-semibold mb-4">Índice</h2>
+            <nav class="space-y-2" id="tableOfContents">
+                <!-- Will be populated by JavaScript -->
+            </nav>
+        </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="main">
-        <div id="content" class="content">
-            <section id="fundamentos" class="content-section active">
-                <h2 class="section-title">Fundamentos do Aconselhamento Cristão Reformado</h2>
-                <p class="section-text">O aconselhamento cristão reformado busca conduzir o coração do adorador, que se desviou para ídolos, de volta para o Deus verdadeiro. A mudança permanente e significativa é um fruto desse processo, não o alvo em si mesmo.</p>
+    <main class="md:ml-80 pt-20 min-h-screen">
+        <div class="container mx-auto px-6 py-8">
+            <!-- Hero Section -->
+            <section id="hero" class="text-center mb-12 fade-in">
+                <div class="gradient-bg rounded-2xl p-12 text-white mb-8">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Aconselhamento Reformado</h1>
+                    <p class="text-xl md:text-2xl mb-6 opacity-90">Teologia e Prática</p>
+                    <p class="text-lg max-w-3xl mx-auto opacity-80">
+                        Um estudo teológico-prático abrangente sobre o aconselhamento cristão na tradição reformada, 
+                        explorando fundamentos bíblicos, metodologias práticas e aplicações pastorais.
+                    </p>
+                    <button onclick="showSection('welcome-section')" class="mt-8 bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Iniciar Estudo <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
             </section>
-            <section id="historia" class="content-section">
-                <h2 class="section-title">História do Aconselhamento</h2>
-                <p class="section-text">A história desta prática, conhecida teologicamente como poimênica, é tão antiga quanto a própria igreja. Suas raízes estão na imagem veterotestamentária de Deus como o Pastor de Israel (Salmo 23) e na autodesignação de Cristo como o "Bom Pastor" que dá a vida por suas ovelhas (João 10:11). Desde a igreja primitiva, o "cuidado de almas" (soul care) foi central, com João Calvino em Genebra praticando um ministério pastoral intenso, vendo o aconselhamento como uma função indispensável da igreja para cuidar das dores e sofrimentos de seus membros. As grandes confissões de fé reformadas, como a Confissão de Fé de Westminster, são ferramentas essenciais, pois sistematizam a doutrina bíblica de forma clara e aplicável. O capítulo 13 da Confissão, sobre a Santificação, por exemplo, descreve precisamente o processo que o aconselhamento busca facilitar: a mortificação do pecado e a vivificação em graça "pela sua palavra e pelo seu Espírito".</p>
+
+            <!-- Quick Stats -->
+            <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 text-center card-hover">
+                    <i class="fas fa-book text-3xl text-primary mb-3"></i>
+                    <h3 class="text-2xl font-bold text-primary">12</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Capítulos</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 text-center card-hover">
+                    <i class="fas fa-brain text-3xl text-green-500 mb-3"></i>
+                    <h3 class="text-2xl font-bold text-green-500">50+</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Conceitos</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 text-center card-hover">
+                    <i class="fas fa-users text-3xl text-blue-500 mb-3"></i>
+                    <h3 class="text-2xl font-bold text-blue-500">2</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Estudos de Caso</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 text-center card-hover">
+                    <i class="fas fa-graduation-cap text-3xl text-orange-500 mb-3"></i>
+                    <h3 class="text-2xl font-bold text-orange-500">150+</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Referências</p>
+                </div>
             </section>
-            <section id="puritanos" class="content-section">
-                <h2 class="section-title">Tradição Puritana</h2>
-                <p class="section-text">Se os reformadores lançaram os fundamentos doutrinários, os puritanos ingleses dos séculos XVI e XVII construíram o edifício da teologia prática. Eles são corretamente chamados de "médicos da alma". Sua grande contribuição foi o desenvolvimento da casuística, a arte de aplicar os princípios bíblicos a "casos de consciência" específicos e complexos da vida cotidiana, tornando o aconselhamento cristão reformado robusto e prático.</p>
+
+            <!-- Welcome Section -->
+            <section id="welcome-section" class="content-section active mb-16">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 text-center">
+                    <div class="max-w-3xl mx-auto">
+                        <i class="fas fa-book-open text-6xl text-primary mb-6"></i>
+                        <h2 class="text-3xl font-bold mb-6 text-primary">Bem-vindo ao Estudo de Aconselhamento Reformado</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                            Selecione um tópico no menu lateral para começar seus estudos. Este curso abrangente 
+                            cobrirá todos os aspectos fundamentais do aconselhamento cristão na tradição reformada.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800">
+                                <i class="fas fa-foundation text-3xl text-blue-500 mb-3"></i>
+                                <h3 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Fundamentos Sólidos</h3>
+                                <p class="text-sm text-blue-700 dark:text-blue-300">Base teológica reformada</p>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+                                <i class="fas fa-hands-helping text-3xl text-green-500 mb-3"></i>
+                                <h3 class="font-semibold text-green-800 dark:text-green-200 mb-2">Prática Pastoral</h3>
+                                <p class="text-sm text-green-700 dark:text-green-300">Aplicação no ministério</p>
+                            </div>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-xl border border-purple-200 dark:border-purple-800">
+                                <i class="fas fa-brain text-3xl text-purple-500 mb-3"></i>
+                                <h3 class="font-semibold text-purple-800 dark:text-purple-200 mb-2">Recursos Interativos</h3>
+                                <p class="text-sm text-purple-700 dark:text-purple-300">Flashcards, quiz e casos</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                            <p class="text-yellow-800 dark:text-yellow-200 font-medium">
+                                💡 Dica: Use o menu lateral para navegar entre os tópicos de estudo
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </section>
-            <section id="suficiencia" class="content-section">
-                <h2 class="section-title">Suficiência das Escrituras</h2>
-                <p class="section-text">A suficiência das Escrituras é o princípio material do aconselhamento bíblico. A afirmação de que "Toda a Escritura é inspirada por Deus e útil para o ensino, para a repreensão, para a correção e para a instrução na justiça, para que o homem de Deus seja apto e plenamente preparado para toda boa obra" (2 Timóteo 3:16-17) é o nosso fundamento. A Bíblia é suficiente para diagnosticar e tratar todos os problemas não-orgânicos da alma humana. Ela nos revela tudo o que precisamos saber sobre Deus (Teologia Própria), sobre nós mesmos (Antropologia), sobre nosso problema fundamental (Hamartiologia), sobre a solução (Cristologia e Soteriologia) e sobre como viver de uma maneira que agrada a Deus (Santificação). Esta doutrina nos coloca em oposição direta às pressuposições seculares e humanistas da psicologia moderna, que negam a revelação e buscam a sabedoria dentro do próprio homem.</p>
-            </section>
-            <section id="qualidades" class="content-section">
-                <h2 class="section-title">Qualidades do Conselheiro</h2>
-                <p class="section-text">As qualificações para o aconselhamento espelham as qualificações para a liderança cristã em geral, agrupadas em três áreas interdependentes: Qualidades Espirituais, Morais e Intelectuais. A base de toda a eficácia no aconselhamento é a piedade pessoal do conselheiro, manifestada primariamente no temor do Senhor, que é o princípio da sabedoria (Provérbios 1:7). Um conselheiro que não vive em comunhão íntima com Deus, que não é uma pessoa de oração (1 Tessalonicenses 5:17) e que não demonstra uma dependência humilde e sensível à direção do Espírito Santo, oferecerá conselhos vazios, mesmo que biblicamente corretos. O conselheiro deve ser um exemplo para o rebanho, possuindo um bom testemunho tanto dentro quanto fora da igreja.</p>
-            </section>
-            <section id="etica" class="content-section">
-                <h2 class="section-title">Ética e Confidencialidade</h2>
-                <p class="section-text">A confidencialidade é essencial no relacionamento de aconselhamento. O aconselhado deve se sentir seguro para abrir seu coração sem medo de exposição ou fofoca. No Brasil, essa responsabilidade ética é reforçada por uma proteção legal. O Código Penal, em seu Artigo 154, tipifica como crime a violação de segredo profissional, e o Código de Processo Penal, no Artigo 207, proíbe que pessoas que devam guardar segredo em razão de "função, ministério, ofício ou profissão" sejam obrigadas a depor como testemunhas. Contudo, o dever de proteger a vida e o vulnerável (derivado do sexto mandamento) tem precedência sobre o sigilo em casos que perpetuariam danos a um inocente, como em situações que "perpet enmperpetuariam" danos. A ação correta é comunicar às autoridades competentes. Todo ministério de aconselhamento formal deve incluir um termo de consentimento informado, explicando claramente os limites da confidencialidade.</p>
-            </section>
-            <section id="psicoterapia" class="content-section">
-                <h2 class="section-title">Aconselhamento vs. Psicoterapia</h2>
-                <p class="section-text">O aconselhamento bíblico não é psicoterapia com versículos salpicados por cima. Suas diferenças são fundamentais e irreconciliáveis em seus pressupostos. A Bíblia é a autoridade final e suficiente, enquanto a psicoterapia se baseia em teorias psicológicas e na razão humana. O aconselhamento bíblico vê o homem como uma criatura de Deus, feita à Sua imagem, porém caída, pecadora e adoradora por natureza. Problemas como depressão severa, ansiedade paralisante ou comportamento psicótico podem ter componentes fisiológicos significativos (desequilíbrios químicos, problemas hormonais, lesões cerebrais). Nesses casos, o encaminhamento a um médico ou psiquiatra é um ato de cuidado integral e responsável, permitindo que o profissional da saúde trate o corpo enquanto o conselheiro pastoral continua a ministrar à alma.</p>
-            </section>
-            <section id="metodologia" class="content-section">
-                <h2 class="section-title">Metodologia do Aconselhamento</h2>
-                <p class="section-text">A metodologia do aconselhamento bíblico flui de sua teologia. O bom aconselhamento começa com uma escuta cuidadosa e ativa. O conselheiro deve resistir à vontade de "responder antes de ouvir", o que a Escritura chama de "tolice e vergonha" (Provérbios 18:13). A empatia bíblica vai além da simpatia secular, entrando no mundo do aconselhado para ver a situação de sua perspectiva e sentir o peso de sua luta, a fim de aplicar a Palavra de Deus com precisão. O conselheiro depende do Espírito Santo, orando antes, durante e após as sessões, e ensina o aconselhado a levar suas lutas a Deus em oração.</p>
-            </section>
-            <section id="processo" class="content-section">
-                <h2 class="section-title">Processo de Aconselhamento</h2>
-                <p class="section-text">O aconselhamento bíblico segue um fluxo lógico que visa conduzir o aconselhado da confusão e dor à clareza e santificação. Inspirado em modelos práticos de conselheiros como Wayne Mack e Lauren Whitman, o processo pode ser delineado em quatro fases principais: 1. Coleta de Dados (Inventário): Construir um relacionamento de confiança e obter uma compreensão abrangente da pessoa e seu problema. 2. Diagnóstico Pastoral (Interpretação): Analisar os dados coletados através das lentes das Escrituras. 3. Prescrição: Desenvolver um plano prático com tarefas bíblicas específicas. 4. Acompanhamento: Monitorar o progresso e ajustar o plano conforme necessário. Muitos ministérios utilizam um Inventário de Dados Pessoais (PDI) para coletar informações valiosas sobre o histórico da pessoa, economizando tempo e garantindo que áreas importantes não sejam negligenciadas.</p>
-            </section>
-            <section id="temas" class="content-section">
-                <h2 class="section-title">Temas Pastorais</h2>
-                <p class="section-text">O aconselhamento bíblico aplica sua teologia a temas como crises espirituais, conflitos, luto, culpa, medo e ansiedade. Conflitos, segundo Tiago 4:1-3, têm sua origem nos desejos que guerreiam dentro de nós, e a solução envolve arrependimento e perdão modelado no perdão de Cristo (Efésios 4:32). Crises de fé e dúvidas profundas requerem evitar respostas simplistas, oferecendo uma abordagem pastoral compassiva. No luto, o conselheiro deve "chorar com os que choram" (Romanos 12:15), enquadrando a dor na promessa da ressurreição (1 Tessalonicenses 4:13-18). Culpa e medo são tratados com precisão, chamando à fé e à confiança nas promessas de Deus.</p>
-            </section>
-            <section id="vicios" class="content-section">
-                <h2 class="section-title">Vícios e Idolatria</h2>
-                <p class="section-text">Na teologia bíblica, o vício é uma forma de idolatria. Como Calvino observou, o coração humano é uma "fábrica perpétua de ídolos". No vício, um desejo criado (por prazer, escape, conforto, controle) é elevado à posição de uma necessidade governante. A pornografia, uma forma prevalente de idolatria sexual, distorce a dádiva de Deus da sexualidade. A abordagem pastoral envolve confissão radical a Deus e a parceiros de responsabilidade, além de um plano prático para "fugir das paixões da mocidade" (2 Timóteo 2:22). Ansiedade pecaminosa é uma questão de fé, combatida com as promessas da Palavra de Deus e a prática da oração (Filipenses 4:6-7). Depressão requer discernimento de causas multifatoriais, oferecendo compaixão pela fraqueza corporal e ministração ao coração.</p>
-            </section>
-            <section id="familia" class="content-section">
-                <h2 class="section-title">Aconselhamento Familiar</h2>
-                <p class="section-text">O aconselhamento de casais na tradição reformada é fundamentado na teologia do pacto, visando restaurar o casamento ao seu desígnio original: refletir a glória de Deus (Efésios 5:32), prover companheirismo e ajuda mútua, e promover santificação. A comunicação deve edificar, falando "a verdade em amor" (Efésios 4:15) e buscando perdão e reconciliação (Colossenses 3:13). A sexualidade é uma dádiva de Deus para união, prazer e procriação, combatendo visões distorcidas do mundo e o legalismo puritano (1 Coríntios 7:3-5). A Confissão de Fé de Westminster (Capítulo 24.5-6) afirma a indissolubilidade do casamento, mas permite divórcio em casos de adultério (Mateus 19:9) e abandono por um cônjuge incrédulo (1 Coríntios 7:15). O aconselhamento é a primeira linha da disciplina eclesiástica (Mateus 18:15-17).</p>
-            </section>
-            <section id="comunidade" class="content-section">
-                <h2 class="section-title">Aconselhamento na Comunidade</h2>
-                <p class="section-text">O aconselhamento bíblico não é um evento isolado, mas uma dinâmica vital na vida da igreja. A igreja local é o hospital de Deus para pecadores, um ambiente terapêutico onde a graça é aplicada através da pregação da Palavra, discipulado e graça comum. O objetivo é reintegrar a pessoa na vida plena do corpo de Cristo, onde ela pode crescer e se tornar um instrumento de cura para outros. A doutrina da graça comum permite colaboração estratégica com profissionais da saúde mental, identificando médicos ou psicólogos cristãos ou respeitosos com a fé, garantindo cuidado holístico.</p>
-            </section>
-            <section id="recursos" class="content-section">
-                <h2 class="section-title">Recursos e Referências</h2>
-                <p class="section-text">Obras fundamentais incluem: "Conselheiro Capaz" de Jay Adams, que lançou o movimento moderno de aconselhamento bíblico em 1970, argumentando pela suficiência das Escrituras; "Vendo com Novos Olhos" de David Powlison, que aprofunda a teologia bíblica do coração; "Falando a Verdade em Amor" de Powlison, explorando a dimensão relacional do aconselhamento; "Instrumentos nas Mãos do Redentor" de Paul Tripp, equipando crentes para o ministério pessoal; "O Pastor Aprovado" de Richard Baxter, um clássico puritano sobre cuidado pastoral; "A Graça de Deus no seu Sofrimento" de Powlison, uma teologia pastoral do sofrimento; "Vícios: um Banquete no Túmulo" de Edward Welch, analisando vícios como idolatria. Recursos online: ABCB[](https://www.abcb.org.br/), CCEF[](https://www.ccef.org/), Conexão Conselho Bíblico[](https://conselhobiblico.com/). Referências citadas incluem artigos e apresentações acessados em 8 de julho de 2025, como "Aconselhamento Bíblico: O Que é?"[](https://ministerioler.com.br/aconselhamento-biblico-o-que-e/) e "João Calvino: Sua Visão Pastoral"[](https://www.monergismo.com/textos/calvino/calvino_pastor_gildasio.htm).</p>
-            </section>
+
+            <!-- Content Sections -->
+            <div id="content">
+                <!-- Section 1: Fundamentos -->
+                <section id="section-1" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-foundation mr-3"></i>
+                            1. Fundamentos do Aconselhamento Cristão Reformado
+                        </h2>
+                        
+                        <div class="prose prose-lg max-w-none dark:prose-invert mb-8">
+                            <h3 class="highlight">Definição, Finalidade e História</h3>
+                            <p class="text-lg leading-relaxed">
+                                <strong>Aconselhamento Cristão Reformado:</strong> É o ministério da Palavra, exercido 
+                                primariamente no contexto da igreja local, por meio do qual crentes maduros, pela 
+                                capacitação do Espírito Santo, aplicam as verdades multifacetadas das Escrituras aos 
+                                problemas da vida e da piedade.
+                            </p>
+                        </div>
+
+                        <!-- Interactive Elements -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <!-- Concept Card -->
+                            <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800">
+                                <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-3">
+                                    <i class="fas fa-target mr-2"></i>Finalidade Dupla
+                                </h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <span class="text-blue-700 dark:text-blue-300"><strong>Último:</strong> A glória de Deus (Soli Deo Gloria)</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <span class="text-blue-700 dark:text-blue-300"><strong>Penúltimo:</strong> Santificação progressiva</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Historical Timeline -->
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800">
+                                <h4 class="font-semibold text-green-800 dark:text-green-200 mb-3">
+                                    <i class="fas fa-clock mr-2"></i>Marco Histórico
+                                </h4>
+                                <div class="text-green-700 dark:text-green-300">
+                                    <p class="font-semibold">1970 - Renascimento Moderno</p>
+                                    <p class="text-sm">"Competent to Counsel" de Jay E. Adams</p>
+                                    <p class="text-sm mt-2">Restabeleceu a suficiência das Escrituras</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tradições Relevantes -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-6">Tradições Relevantes</h3>
+                            <div class="space-y-4">
+                                <div class="accordion-item">
+                                    <button class="accordion-header w-full text-left p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors flex items-center justify-between">
+                                        <span class="font-semibold">
+                                            <i class="fas fa-church mr-2 text-blue-500"></i>
+                                            Tradição Reformada
+                                        </span>
+                                        <i class="fas fa-chevron-down transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content p-4 bg-white dark:bg-gray-800 rounded-b-lg border-x border-b border-gray-200 dark:border-gray-700">
+                                        <p>A Reforma Protestante, com seu retorno às Escrituras (Sola Scriptura), estabeleceu o alicerce doutrinário para o cuidado de almas. João Calvino sistematizou a teologia que nos informa e praticou um ministério pastoral intenso em Genebra.</p>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <button class="accordion-header w-full text-left p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors flex items-center justify-between">
+                                        <span class="font-semibold">
+                                            <i class="fas fa-user-md mr-2 text-green-500"></i>
+                                            Tradição Puritana
+                                        </span>
+                                        <i class="fas fa-chevron-down transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content p-4 bg-white dark:bg-gray-800 rounded-b-lg border-x border-b border-gray-200 dark:border-gray-700">
+                                        <p>Os puritanos ingleses dos séculos XVI e XVII são corretamente chamados de "médicos da alma". Desenvolveram a casuística, a arte de aplicar os princípios bíblicos a casos específicos da vida cotidiana.</p>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <button class="accordion-header w-full text-left p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors flex items-center justify-between">
+                                        <span class="font-semibold">
+                                            <i class="fas fa-calendar-alt mr-2 text-purple-500"></i>
+                                            Tradição Contemporânea
+                                        </span>
+                                        <i class="fas fa-chevron-down transition-transform"></i>
+                                    </button>
+                                    <div class="accordion-content p-4 bg-white dark:bg-gray-800 rounded-b-lg border-x border-b border-gray-200 dark:border-gray-700">
+                                        <p>O movimento moderno surgiu como reação à "psicologização" da igreja no século XX. Foi catalisado em 1970 por Jay E. Adams, chegando ao Brasil através de missionários como Bill Moore.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bases Bíblicas -->
+                        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/10 dark:to-orange-900/10 p-6 rounded-xl border border-yellow-200 dark:border-yellow-800">
+                            <h3 class="text-xl font-semibold mb-4 text-yellow-800 dark:text-yellow-200">
+                                <i class="fas fa-bible mr-2"></i>Pilares Inegociáveis
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-blue-600 dark:text-blue-400 mb-2">1. Suficiência das Escrituras</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">"Toda a Escritura é inspirada por Deus e útil..." (2 Tm 3:16-17)</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-600 dark:text-green-400 mb-2">2. Ministério do Espírito Santo</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">O Parakletos - Consolador, Ajudador, Conselheiro (Jo 14:16)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: O Conselheiro -->
+                <section id="section-2" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-user-tie mr-3"></i>
+                            2. O Conselheiro: Perfil, Ética e Limites
+                        </h2>
+
+                        <!-- Qualidades Essenciais -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-6">Qualidades Essenciais</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-gradient-to-br from-purple-50 to-pink-100 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-xl border border-purple-200 dark:border-purple-800 card-hover">
+                                    <div class="text-center">
+                                        <i class="fas fa-pray text-4xl text-purple-500 mb-4"></i>
+                                        <h4 class="font-bold text-purple-800 dark:text-purple-200 mb-3">Espirituais</h4>
+                                        <ul class="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+                                            <li>• Temor do Senhor</li>
+                                            <li>• Vida de oração</li>
+                                            <li>• Dependência do Espírito</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800 card-hover">
+                                    <div class="text-center">
+                                        <i class="fas fa-heart text-4xl text-green-500 mb-4"></i>
+                                        <h4 class="font-bold text-green-800 dark:text-green-200 mb-3">Morais</h4>
+                                        <ul class="text-sm text-green-700 dark:text-green-300 space-y-1">
+                                            <li>• Compaixão</li>
+                                            <li>• Humildade</li>
+                                            <li>• Amor (Cl 3:12-14)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800 card-hover">
+                                    <div class="text-center">
+                                        <i class="fas fa-brain text-4xl text-blue-500 mb-4"></i>
+                                        <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-3">Intelectuais</h4>
+                                        <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                                            <li>• Conhecimento bíblico</li>
+                                            <li>• Formação contínua</li>
+                                            <li>• Precisão doutrinária</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ética e Responsabilidades -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-6">Responsabilidades e Limites Éticos</h3>
+                            
+                            <!-- Alert Box - Sigilo -->
+                            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-red-800 dark:text-red-200 mb-2">Antinomia Jurídica: Sigilo vs. Proteção</h4>
+                                        <p class="text-red-700 dark:text-red-300 text-sm mb-3">
+                                            No Brasil, existe um conflito legal: o pastor deve guardar sigilo (CPP, Art. 207) 
+                                            mas também comunicar suspeitas de abuso infantil (ECA, Art. 13).
+                                        </p>
+                                        <div class="bg-red-100 dark:bg-red-900/40 p-3 rounded">
+                                            <strong class="text-red-800 dark:text-red-200">Solução: Absolutismo Graduado</strong>
+                                            <p class="text-red-700 dark:text-red-300 text-sm mt-1">
+                                                O dever de proteger a vida e o vulnerável tem precedência sobre o sigilo.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Formação e Discernimento -->
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800">
+                                <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-4">
+                                    <i class="fas fa-stethoscope mr-2"></i>Aconselhamento vs. Psicoterapia
+                                </h4>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead>
+                                            <tr class="border-b border-blue-200 dark:border-blue-700">
+                                                <th class="text-left py-2 text-blue-800 dark:text-blue-200">Aspecto</th>
+                                                <th class="text-left py-2 text-blue-800 dark:text-blue-200">Aconselhamento Bíblico</th>
+                                                <th class="text-left py-2 text-blue-800 dark:text-blue-200">Psicoterapia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-blue-700 dark:text-blue-300">
+                                            <tr class="border-b border-blue-100 dark:border-blue-800">
+                                                <td class="py-2 font-medium">Autoridade</td>
+                                                <td class="py-2">Bíblia como autoridade final</td>
+                                                <td class="py-2">Teorias psicológicas e razão</td>
+                                            </tr>
+                                            <tr class="border-b border-blue-100 dark:border-blue-800">
+                                                <td class="py-2 font-medium">Problema</td>
+                                                <td class="py-2">Pecado (idolatria, rebelião)</td>
+                                                <td class="py-2">Doença mental, trauma</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 font-medium">Solução</td>
+                                                <td class="py-2">Redenção e santificação</td>
+                                                <td class="py-2">Autoaceitação, ajuste</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Modelos e Métodos -->
+                <section id="section-3" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-cogs mr-3"></i>
+                            3. Modelos e Métodos: Uma Abordagem Bíblica e Crítica
+                        </h2>
+
+                        <!-- Análise de Modelos Seculares -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-6">Análise Crítica de Modelos Seculares</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-4">
+                                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200 mb-2">
+                                            <i class="fas fa-user-md mr-2"></i>Freud (Psicanálise)
+                                        </h4>
+                                        <p class="text-red-700 dark:text-red-300 text-sm mb-2">
+                                            <strong>Problema:</strong> Vê religião como "neurose universal"
+                                        </p>
+                                        <p class="text-red-600 dark:text-red-400 text-xs">
+                                            Nega imagem de Deus e responsabilidade moral
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200 mb-2">
+                                            <i class="fas fa-robot mr-2"></i>Skinner (Behaviorismo)
+                                        </h4>
+                                        <p class="text-red-700 dark:text-red-300 text-sm mb-2">
+                                            <strong>Problema:</strong> Reduz humano a máquina biológica
+                                        </p>
+                                        <p class="text-red-600 dark:text-red-400 text-xs">
+                                            Nega alma, mente e livre-arbítrio
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-4">
+                                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200 mb-2">
+                                            <i class="fas fa-smile mr-2"></i>Rogers (Humanista)
+                                        </h4>
+                                        <p class="text-red-700 dark:text-red-300 text-sm mb-2">
+                                            <strong>Problema:</strong> Homem inerentemente bom
+                                        </p>
+                                        <p class="text-red-600 dark:text-red-400 text-xs">
+                                            Contradiz doutrina da depravação total
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                                        <h4 class="font-bold text-red-800 dark:text-red-200 mb-2">
+                                            <i class="fas fa-mountain mr-2"></i>Maslow (Hierarquia)
+                                        </h4>
+                                        <p class="text-red-700 dark:text-red-300 text-sm mb-2">
+                                            <strong>Problema:</strong> Autorrealização como topo
+                                        </p>
+                                        <p class="text-red-600 dark:text-red-400 text-xs">
+                                            Inverte prioridades bíblicas (Mt 6:33)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Evolução do Aconselhamento Bíblico -->
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-semibold mb-6">Evolução do Aconselhamento Bíblico</h3>
+                            
+                            <div class="relative">
+                                <!-- Timeline -->
+                                <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-primary"></div>
+                                
+                                <div class="space-y-8">
+                                    <!-- 1ª Geração -->
+                                    <div class="flex items-start space-x-6">
+                                        <div class="flex-shrink-0 w-16 h-16 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">
+                                            1ª
+                                        </div>
+                                        <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800 flex-grow">
+                                            <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2">
+                                                Primeira Geração - Aconselhamento Noutético (Jay Adams)
+                                            </h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                                <div>
+                                                    <p class="text-blue-700 dark:text-blue-300 mb-2"><strong>Foco:</strong> Comportamento e responsabilidade</p>
+                                                    <p class="text-blue-700 dark:text-blue-300"><strong>Método:</strong> Confrontação diretiva</p>
+                                                </div>
+                                                <div>
+                                                    <p class="text-blue-700 dark:text-blue-300 mb-2"><strong>Contribuição:</strong> Suficiência das Escrituras</p>
+                                                    <p class="text-blue-600 dark:text-blue-400"><strong>Crítica:</strong> Pode parecer legalista</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2ª Geração -->
+                                    <div class="flex items-start space-x-6">
+                                        <div class="flex-shrink-0 w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">
+                                            2ª
+                                        </div>
+                                        <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl border border-green-200 dark:border-green-800 flex-grow">
+                                            <h4 class="font-bold text-green-800 dark:text-green-200 mb-2">
+                                                Segunda Geração - Foco no Coração (CCEF - Powlison, Welch)
+                                            </h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                                <div>
+                                                    <p class="text-green-700 dark:text-green-300 mb-2"><strong>Foco:</strong> Coração (motivações, ídolos)</p>
+                                                    <p class="text-green-700 dark:text-green-300"><strong>Método:</strong> Exploração empática</p>
+                                                </div>
+                                                <div>
+                                                    <p class="text-green-700 dark:text-green-300 mb-2"><strong>Contribuição:</strong> Teologia do coração</p>
+                                                    <p class="text-green-600 dark:text-green-400"><strong>Avanço:</strong> Pecador + sofredor</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Princípios Práticos -->
+                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/10 dark:to-pink-900/10 p-6 rounded-xl border border-purple-200 dark:border-purple-800">
+                            <h3 class="text-xl font-semibold mb-4 text-purple-800 dark:text-purple-200">
+                                <i class="fas fa-tools mr-2"></i>Princípios Práticos Fundamentais
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-purple-600 dark:text-purple-400 mb-2">
+                                        <i class="fas fa-ear-listen mr-1"></i>Escuta Ativa
+                                    </h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                                        "Responder antes de ouvir é tolice e vergonha" (Pv 18:13)
+                                    </p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-purple-600 dark:text-purple-400 mb-2">
+                                        <i class="fas fa-search mr-1"></i>Diagnóstico Pastoral
+                                    </h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                                        Expor os ídolos do coração através de perguntas investigativas
+                                    </p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-purple-600 dark:text-purple-400 mb-2">
+                                        <i class="fas fa-bible mr-1"></i>Uso da Palavra
+                                    </h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">
+                                        Aplicação criativa e relevante das Escrituras à situação específica
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Flashcards Section -->
+                <section id="flashcards" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-cards-blank mr-3"></i>
+                            Flashcards - Conceitos Importantes
+                        </h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="flashcards-container">
+                            <!-- Flashcards will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="text-center mt-6">
+                            <button onclick="shuffleFlashcards()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                                <i class="fas fa-shuffle mr-2"></i>Embaralhar Cards
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quiz Section -->
+                <section id="quiz" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-question-circle mr-3"></i>
+                            Quiz - Teste seus Conhecimentos
+                        </h2>
+                        
+                        <div id="quiz-container">
+                            <!-- Quiz questions will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="text-center mt-6">
+                            <button onclick="startQuiz()" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors">
+                                <i class="fas fa-play mr-2"></i>Iniciar Quiz
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Case Studies -->
+                <section id="case-studies" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-users mr-3"></i>
+                            Estudos de Caso Interativos
+                        </h2>
+                        
+                        <div class="space-y-8">
+                            <!-- Case Study 1 -->
+                            <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6">
+                                    <h3 class="text-xl font-bold mb-2">Caso 1: Conflito Conjugal (Marcos e Ana)</h3>
+                                    <p class="opacity-90">Problemas de comunicação e ídolos do coração</p>
+                                </div>
+                                
+                                <div class="p-6">
+                                    <div class="mb-6">
+                                        <h4 class="font-semibold text-lg mb-3 text-blue-600 dark:text-blue-400">
+                                            <i class="fas fa-info-circle mr-2"></i>Situação Apresentada
+                                        </h4>
+                                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            Marcos e Ana procuram aconselhamento devido a "problemas de comunicação". 
+                                            Suas discussões são frequentes e destrutivas. Ana chora, dizendo que Marcos 
+                                            é frio e controlador. Marcos afirma que Ana é "emocional demais" e nunca está satisfeita.
+                                        </p>
+                                    </div>
+
+                                    <div class="case-study-steps">
+                                        <div class="step-navigation mb-6">
+                                            <div class="flex space-x-2">
+                                                <button class="step-btn active" data-step="1">1. Coleta de Dados</button>
+                                                <button class="step-btn" data-step="2">2. Diagnóstico</button>
+                                                <button class="step-btn" data-step="3">3. Plano de Ação</button>
+                                                <button class="step-btn" data-step="4">4. Resultado</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-content" id="step-1">
+                                            <h4 class="font-semibold mb-3 text-green-600 dark:text-green-400">Coleta de Dados</h4>
+                                            <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                                                <p class="mb-2"><strong>Descobertas:</strong></p>
+                                                <ul class="list-disc list-inside space-y-1 text-sm">
+                                                    <li>Brigas se intensificam quando planos de Marcos são frustrados</li>
+                                                    <li>Ana se sente desvalorizada e ignorada</li>
+                                                    <li>Ambos usam palavras destrutivas durante conflitos</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-content hidden" id="step-2">
+                                            <h4 class="font-semibold mb-3 text-yellow-600 dark:text-yellow-400">Diagnóstico Pastoral</h4>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                                                    <p class="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Marcos:</p>
+                                                    <p class="text-sm">Ídolo do <strong>controle</strong> e <strong>conforto</strong>. Ira explode quando sua vontade é contrariada.</p>
+                                                </div>
+                                                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                                                    <p class="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Ana:</p>
+                                                    <p class="text-sm">Ídolo da <strong>aprovação</strong> e <strong>respeito</strong>. Amargura surge quando se sente ignorada.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-content hidden" id="step-3">
+                                            <h4 class="font-semibold mb-3 text-purple-600 dark:text-purple-400">Plano de Ação</h4>
+                                            <div class="space-y-4">
+                                                <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                                                    <p class="font-semibold mb-2">Tarefas para Marcos:</p>
+                                                    <ul class="text-sm space-y-1">
+                                                        <li>• Meditar em Filipenses 2:3-8</li>
+                                                        <li>• Manter "diário de ira"</li>
+                                                        <li>• Praticar consideração pelos interesses de Ana</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                                                    <p class="font-semibold mb-2">Tarefas para Ana:</p>
+                                                    <ul class="text-sm space-y-1">
+                                                        <li>• Estudar 1 Pedro 3:1-6</li>
+                                                        <li>• Praticar gratidão diária</li>
+                                                        <li>• Encontrar valor em Deus, não na aprovação</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="step-content hidden" id="step-4">
+                                            <h4 class="font-semibold mb-3 text-blue-600 dark:text-blue-400">Resultado Esperado</h4>
+                                            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                                                <p class="mb-2">O progresso é medido não pela ausência de conflitos, mas por:</p>
+                                                <ul class="list-disc list-inside space-y-1 text-sm">
+                                                    <li>Como lidam com conflitos quando surgem</li>
+                                                    <li>Prática de arrependimento e perdão</li>
+                                                    <li>Substituição da ira e amargura por amor e compreensão</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Case Study 2 -->
+                            <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                                <div class="bg-gradient-to-r from-green-500 to-teal-600 text-white p-6">
+                                    <h3 class="text-xl font-bold mb-2">Caso 2: Ansiedade e Depressão (Sofia)</h3>
+                                    <p class="opacity-90">Abordagem holística corpo-alma</p>
+                                </div>
+                                
+                                <div class="p-6">
+                                    <div class="mb-6">
+                                        <h4 class="font-semibold text-lg mb-3 text-green-600 dark:text-green-400">
+                                            <i class="fas fa-info-circle mr-2"></i>Situação Apresentada
+                                        </h4>
+                                        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                            Sofia, jovem universitária, apresenta ansiedade paralisante e períodos de 
+                                            profunda tristeza. Tem dificuldade para dormir, perdeu apetite e está se 
+                                            isolando. Teme fracasso acadêmico e se sente esmagada pela pressão.
+                                        </p>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
+                                            <h4 class="font-semibold text-orange-800 dark:text-orange-200 mb-3">
+                                                <i class="fas fa-stethoscope mr-2"></i>Aspecto Médico
+                                            </h4>
+                                            <ul class="text-sm text-orange-700 dark:text-orange-300 space-y-1">
+                                                <li>• Encaminhamento para médico cristão</li>
+                                                <li>• Avaliação de causas físicas</li>
+                                                <li>• Medicação para regular química cerebral</li>
+                                                <li>• Tratamento do corpo como templo</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                                            <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-3">
+                                                <i class="fas fa-heart mr-2"></i>Aspecto Espiritual
+                                            </h4>
+                                            <ul class="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                                                <li>• Teologia do sofrimento (2 Co 12)</li>
+                                                <li>• Combate à ansiedade (Fp 4:6-8)</li>
+                                                <li>• Identidade em Cristo</li>
+                                                <li>• Libertação do perfeccionismo</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-6 bg-teal-50 dark:bg-teal-900/20 p-4 rounded-lg border border-teal-200 dark:border-teal-800">
+                                        <h4 class="font-semibold text-teal-800 dark:text-teal-200 mb-2">
+                                            <i class="fas fa-balance-scale mr-2"></i>Abordagem Integrada
+                                        </h4>
+                                        <p class="text-teal-700 dark:text-teal-300 text-sm">
+                                            A medicação alivia sintomas debilitantes enquanto o aconselhamento bíblico 
+                                            trabalha na raiz espiritual. Sofia aprende a lutar contra ansiedade com 
+                                            armas da fé, encontrando esperança em Cristo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bibliography -->
+                <section id="bibliography" class="content-section mb-16">
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-6 text-primary">
+                            <i class="fas fa-books mr-3"></i>
+                            Bibliografia Comentada
+                        </h2>
+                        
+                        <div class="space-y-6">
+                            <!-- Obras Fundamentais -->
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4 text-blue-600 dark:text-blue-400">Obras Fundamentais</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                                        <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Jay E. Adams</h4>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300 mb-2"><em>Conselheiro Capaz</em></p>
+                                        <p class="text-xs text-blue-600 dark:text-blue-400">
+                                            Obra fundacional que lançou o movimento moderno de aconselhamento bíblico em 1970.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                                        <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">David Powlison</h4>
+                                        <p class="text-sm text-green-700 dark:text-green-300 mb-2"><em>Vendo com Novos Olhos</em></p>
+                                        <p class="text-xs text-green-600 dark:text-green-400">
+                                            Aprofundamento da segunda geração, focando na teologia bíblica do coração.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
+                                        <h4 class="font-semibold text-purple-800 dark:text-purple-200 mb-2">Paul David Tripp</h4>
+                                        <p class="text-sm text-purple-700 dark:text-purple-300 mb-2"><em>Instrumentos nas Mãos do Redentor</em></p>
+                                        <p class="text-xs text-purple-600 dark:text-purple-400">
+                                            Equipando cada crente para o ministério pessoal com modelo prático.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-orange-50 dark:bg-orange-900/20 p-4 rounded-lg border border-orange-200 dark:border-orange-800">
+                                        <h4 class="font-semibold text-orange-800 dark:text-orange-200 mb-2">Edward T. Welch</h4>
+                                        <p class="text-sm text-orange-700 dark:text-orange-300 mb-2"><em>A Culpa é do Cérebro?</em></p>
+                                        <p class="text-xs text-orange-600 dark:text-orange-400">
+                                            Interface entre fé e ciência, corpo e alma de forma biblicamente fiel.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recursos Online -->
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4 text-green-600 dark:text-green-400">Recursos Online</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-semibold mb-2">ABCB</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Associação Brasileira de Conselheiros Bíblicos</p>
+                                    </div>
+                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-semibold mb-2">CCEF</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Christian Counseling & Educational Foundation</p>
+                                    </div>
+                                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                        <h4 class="font-semibold mb-2">Conexão Conselho Bíblico</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Portal em português com artigos de qualidade</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <p>Desenvolvido por Rodrigo Niskier, Gemini e Grok</p>
+    <footer class="md:ml-80 bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-4">&copy; 2024 Aconselhamento Reformado: Teologia e Prática</p>
+            <p class="text-gray-400 text-sm">Soli Deo Gloria</p>
+        </div>
     </footer>
+
+    <script>
+        // Dark mode functionality
+        function initDarkMode() {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+            
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+        }
+
+        // Table of contents
+        const sections = [
+            { id: 'welcome-section', title: 'Início', icon: 'fas fa-home' },
+            { id: 'section-1', title: '1. Fundamentos', icon: 'fas fa-foundation' },
+            { id: 'section-2', title: '2. O Conselheiro', icon: 'fas fa-user-tie' },
+            { id: 'section-3', title: '3. Modelos e Métodos', icon: 'fas fa-cogs' },
+            { id: 'flashcards', title: 'Flashcards', icon: 'fas fa-cards-blank' },
+            { id: 'quiz', title: 'Quiz', icon: 'fas fa-question-circle' },
+            { id: 'case-studies', title: 'Estudos de Caso', icon: 'fas fa-users' },
+            { id: 'bibliography', title: 'Bibliografia', icon: 'fas fa-books' }
+        ];
+
+        function generateTableOfContents() {
+            const tocContainer = document.getElementById('tableOfContents');
+            sections.forEach(section => {
+                const link = document.createElement('a');
+                link.href = `#${section.id}`;
+                link.className = 'nav-item block p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-700 dark:text-gray-300 hover:text-primary';
+                link.innerHTML = `<i class="${section.icon} mr-3"></i>${section.title}`;
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    showSection(section.id);
+                };
+                tocContainer.appendChild(link);
+            });
+        }
+
+        // Show specific section
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Add animation
+                targetSection.classList.add('fade-in');
+            }
+            
+            // Update navigation active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const activeNavItem = document.querySelector(`a[href="#${sectionId}"]`);
+            if (activeNavItem) {
+                activeNavItem.classList.add('active');
+            }
+            
+            // Close mobile menu if open
+            const sidebar = document.getElementById('sidebar');
+            if (window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+
+        // Flashcards data
+        const flashcardsData = [
+            {
+                front: "Aconselhamento Cristão Reformado",
+                back: "Ministério da Palavra exercido no contexto da igreja local, aplicando verdades bíblicas aos problemas da vida pela capacitação do Espírito Santo."
+            },
+            {
+                front: "Finalidade Última",
+                back: "A glória de Deus (Soli Deo Gloria) - todas as atividades da igreja devem convergir para este fim supremo."
+            },
+            {
+                front: "Finalidade Penúltima",
+                back: "Santificação progressiva do aconselhado - crescente conformidade à imagem de Cristo (Rm 8:29)."
+            },
+            {
+                front: "Nouthesia",
+                back: "Termo grego que significa 'colocar na mente', processo de confrontação, admoestação e instrução bíblica."
+            },
+            {
+                front: "Suficiência das Escrituras",
+                back: "A Bíblia é suficiente para diagnosticar e tratar todos os problemas não-orgânicos da alma humana (2 Tm 3:16-17)."
+            },
+            {
+                front: "Parakletos",
+                back: "O Espírito Santo como Consolador, Ajudador e Conselheiro - o verdadeiro Agente de mudança no aconselhamento."
+            },
+            {
+                front: "Primeira Geração",
+                back: "Aconselhamento Noutético de Jay Adams - foco no comportamento, responsabilidade e confrontação diretiva."
+            },
+            {
+                front: "Segunda Geração",
+                back: "CCEF (Powlison, Welch) - foco no coração, ídolos, motivações e teologia bíblica mais profunda."
+            },
+            {
+                front: "Ídolos do Coração",
+                back: "Desejos, medos e crenças que governam a pessoa, tornando-se objetos de adoração em lugar de Deus."
+            },
+            {
+                front: "Absolutismo Graduado",
+                back: "Quando deveres morais conflitam, devemos obedecer ao mandamento superior (ex: proteger vulneráveis vs. sigilo)."
+            },
+            {
+                front: "Mortificação e Vivificação",
+                back: "Padrão bíblico de 'despojar-se' do velho homem e 'revestir-se' do novo (Ef 4:22-24)."
+            },
+            {
+                front: "Cura Animarum",
+                back: "Termo latino para 'cuidado de almas' - responsabilidade central do ministério pastoral através da história."
+            }
+        ];
+
+        function generateFlashcards() {
+            const container = document.getElementById('flashcards-container');
+            flashcardsData.forEach((card, index) => {
+                const flashcardDiv = document.createElement('div');
+                flashcardDiv.className = 'flashcard cursor-pointer';
+                flashcardDiv.onclick = () => flipCard(index);
+                
+                flashcardDiv.innerHTML = `
+                    <div class="flashcard-inner">
+                        <div class="flashcard-front bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                            <h3 class="text-lg font-bold text-center">${card.front}</h3>
+                        </div>
+                        <div class="flashcard-back bg-gradient-to-br from-green-500 to-teal-600 text-white">
+                            <p class="text-sm text-center">${card.back}</p>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(flashcardDiv);
+            });
+        }
+
+        function flipCard(index) {
+            const flashcards = document.querySelectorAll('.flashcard');
+            flashcards[index].classList.toggle('flipped');
+        }
+
+        function shuffleFlashcards() {
+            const container = document.getElementById('flashcards-container');
+            const cards = Array.from(container.children);
+            
+            // Shuffle array
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+            
+            // Remove all cards and re-add in new order
+            container.innerHTML = '';
+            cards.forEach(card => {
+                card.classList.remove('flipped'); // Reset all cards
+                container.appendChild(card);
+            });
+        }
+
+        // Quiz functionality
+        const quizData = [
+            {
+                question: "Qual é a finalidade última do aconselhamento cristão reformado?",
+                options: [
+                    "A felicidade do aconselhado",
+                    "A resolução de todos os problemas",
+                    "A glória de Deus (Soli Deo Gloria)",
+                    "A paz interior"
+                ],
+                correct: 2,
+                explanation: "A finalidade última é sempre a glória de Deus, conforme o princípio Soli Deo Gloria da Reforma."
+            },
+            {
+                question: "O que significa 'nouthesia' no contexto do aconselhamento?",
+                options: [
+                    "Escutar passivamente",
+                    "Colocar na mente, confrontar e admoestar",
+                    "Dar conselhos práticos",
+                    "Orar pelo aconselhado"
+                ],
+                correct: 1,
+                explanation: "Nouthesia é o termo grego que significa 'colocar na mente', envolvendo confrontação, admoestação e instrução bíblica."
+            },
+            {
+                question: "Qual é a principal diferença entre a 1ª e 2ª geração do aconselhamento bíblico?",
+                options: [
+                    "A 1ª usava a Bíblia, a 2ª não",
+                    "A 1ª focava no comportamento, a 2ª no coração",
+                    "A 1ª era para pastores, a 2ª para leigos",
+                    "Não há diferença significativa"
+                ],
+                correct: 1,
+                explanation: "A 1ª geração (Adams) focava principalmente no comportamento e responsabilidade, enquanto a 2ª geração (CCEF) aprofundou-se na teologia do coração e dos ídolos."
+            },
+            {
+                question: "Em caso de conflito entre sigilo pastoral e proteção de vulneráveis, qual princípio se aplica?",
+                options: [
+                    "O sigilo sempre prevalece",
+                    "Depende da situação",
+                    "Absolutismo graduado - proteger vulneráveis tem precedência",
+                    "Consultar um advogado primeiro"
+                ],
+                correct: 2,
+                explanation: "O absolutismo graduado ensina que o dever de proteger a vida e os vulneráveis tem precedência sobre o sigilo quando há conflito."
+            },
+            {
+                question: "Quais são os dois pilares inegociáveis do aconselhamento cristão reformado?",
+                options: [
+                    "Experiência pastoral e conhecimento psicológico",
+                    "Suficiência das Escrituras e ministério do Espírito Santo",
+                    "Amor e sabedoria humana",
+                    "Tradição da igreja e razão"
+                ],
+                correct: 1,
+                explanation: "Os dois pilares são a suficiência das Escrituras (princípio material) e o ministério indispensável do Espírito Santo (princípio eficiente)."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizStarted = false;
+
+        function startQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            quizStarted = true;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            const container = document.getElementById('quiz-container');
+            const question = quizData[currentQuizIndex];
+            
+            container.innerHTML = `
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-sm text-gray-500">Pergunta ${currentQuizIndex + 1} de ${quizData.length}</span>
+                        <span class="text-sm text-gray-500">Pontuação: ${quizScore}/${quizData.length}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-6">
+                        <div class="bg-primary h-2 rounded-full" style="width: ${((currentQuizIndex) / quizData.length) * 100}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-4">${question.question}</h3>
+                    <div class="space-y-3">
+                        ${question.options.map((option, index) => `
+                            <button onclick="selectAnswer(${index})" class="quiz-option w-full p-4 text-left border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                                ${option}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const question = quizData[currentQuizIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            // Disable all options
+            options.forEach(option => option.disabled = true);
+            
+            // Show correct/incorrect
+            options[selectedIndex].classList.add(selectedIndex === question.correct ? 'correct' : 'incorrect');
+            if (selectedIndex !== question.correct) {
+                options[question.correct].classList.add('correct');
+            }
+            
+            // Update score
+            if (selectedIndex === question.correct) {
+                quizScore++;
+            }
+            
+            // Show explanation
+            setTimeout(() => {
+                const container = document.getElementById('quiz-container');
+                container.innerHTML += `
+                    <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Explicação:</h4>
+                        <p class="text-blue-700 dark:text-blue-300 text-sm">${question.explanation}</p>
+                    </div>
+                    
+                    <div class="text-center mt-6">
+                        ${currentQuizIndex < quizData.length - 1 
+                            ? `<button onclick="nextQuestion()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">Próxima Pergunta</button>`
+                            : `<button onclick="showQuizResults()" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">Ver Resultados</button>`
+                        }
+                    </div>
+                `;
+            }, 1000);
+        }
+
+        function nextQuestion() {
+            currentQuizIndex++;
+            showQuizQuestion();
+        }
+
+        function showQuizResults() {
+            const container = document.getElementById('quiz-container');
+            const percentage = Math.round((quizScore / quizData.length) * 100);
+            let message = '';
+            let colorClass = '';
+            
+            if (percentage >= 80) {
+                message = 'Excelente! Você domina bem os conceitos fundamentais.';
+                colorClass = 'text-green-600';
+            } else if (percentage >= 60) {
+                message = 'Bom trabalho! Continue estudando para aprimorar seus conhecimentos.';
+                colorClass = 'text-blue-600';
+            } else {
+                message = 'Continue estudando. Revise os conceitos fundamentais.';
+                colorClass = 'text-yellow-600';
+            }
+            
+            container.innerHTML = `
+                <div class="text-center">
+                    <div class="mb-6">
+                        <div class="text-6xl font-bold ${colorClass} mb-4">${percentage}%</div>
+                        <h3 class="text-2xl font-semibold mb-2">Quiz Concluído!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Você acertou ${quizScore} de ${quizData.length} perguntas</p>
+                        <p class="${colorClass} font-medium">${message}</p>
+                    </div>
+                    
+                    <div class="space-x-4">
+                        <button onclick="startQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+                            Tentar Novamente
+                        </button>
+                        <button onclick="resetQuiz()" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                            Voltar ao Início
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-4">Teste seus conhecimentos sobre Aconselhamento Reformado</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                        Este quiz contém ${quizData.length} perguntas sobre os principais conceitos estudados.
+                    </p>
+                </div>
+            `;
+            quizStarted = false;
+        }
+
+        // Case study navigation
+        function setupCaseStudyNavigation() {
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('step-btn')) {
+                    const step = e.target.dataset.step;
+                    const caseStudy = e.target.closest('.case-study-steps');
+                    
+                    // Update active button
+                    caseStudy.querySelectorAll('.step-btn').forEach(btn => btn.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    // Show corresponding content
+                    caseStudy.querySelectorAll('.step-content').forEach(content => content.classList.add('hidden'));
+                    caseStudy.querySelector(`#step-${step}`).classList.remove('hidden');
+                }
+            });
+        }
+
+        // Accordion functionality
+        function setupAccordions() {
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('accordion-header') || e.target.closest('.accordion-header')) {
+                    const header = e.target.closest('.accordion-header');
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.fa-chevron-down');
+                    
+                    content.classList.toggle('active');
+                    icon.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                }
+            });
+        }
+
+        // Progress tracking
+        function updateProgress() {
+            const sections = document.querySelectorAll('.content-section');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            // Simple progress based on active section
+            function updateProgressBar() {
+                const activeSection = document.querySelector('.content-section.active');
+                if (activeSection) {
+                    const sectionIndex = Array.from(sections).indexOf(activeSection);
+                    const progress = ((sectionIndex + 1) / sections.length) * 100;
+                    progressBar.style.width = `${Math.min(progress, 100)}%`;
+                }
+            }
+            
+            // Update progress when section changes
+            const observer = new MutationObserver(updateProgressBar);
+            sections.forEach(section => {
+                observer.observe(section, { attributes: true, attributeFilter: ['class'] });
+            });
+            
+            updateProgressBar(); // Initial update
+        }
+
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            menuToggle?.addEventListener('click', function() {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+        }
+
+        // Dark mode toggle
+        function setupDarkModeToggle() {
+            const toggle = document.getElementById('darkModeToggle');
+            toggle?.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initDarkMode();
+            generateTableOfContents();
+            generateFlashcards();
+            resetQuiz();
+            setupCaseStudyNavigation();
+            setupAccordions();
+            updateProgress();
+            setupMobileMenu();
+            setupDarkModeToggle();
+            
+            // Show welcome section by default
+            showSection('welcome-section');
+            
+            // Add fade-in animation to sections when they become active
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.content-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
